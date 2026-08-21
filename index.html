@@ -1653,7 +1653,7 @@
   <div class="canvas-card" style="background:#eceef1;color:var(--ink)">
     <div class="chrome-min"><div class="l">PROBLEM · EXISTING ALTERNATIVES</div><div class="r">03 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-rows:auto 1fr;gap:2.8vh;padding:0 2vw 2vh;min-height:0">
-      <h2 style="max-width:94%;font-family:var(--sans);font-size:min(4.25vw,7.1vh);font-weight:560;line-height:1.01;letter-spacing:-.04em">Run law <span style="color:var(--accent);font-weight:720">in time.</span></h2>
+      <h2 style="max-width:94%;font-family:var(--sans);font-size:min(4.25vw,7.1vh);font-weight:560;line-height:1.01;letter-spacing:-.04em">Two <span style="color:var(--accent);font-weight:720">incomplete</span> workflows.</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.4vw;align-items:stretch;min-height:0">
         <div style="display:grid;grid-template-rows:28vh auto;gap:1.7vh;border-top:4px solid var(--accent);padding-top:1.4vh;min-height:0">
           <div role="img" aria-label="Logos of Claude, Gemini, DeepSeek, Llama, and Grok" style="width:100%;height:28vh;background:#f8f9fb;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:2.2vh 2.1vw;padding:2.2vh 1.2vw;border:1px solid rgba(17,24,39,.08)">
@@ -2395,10 +2395,10 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide light" data-layout="S20" data-slide-id="appendix-financial-model">
   <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
-    <div class="chrome-min"><div class="l">APPENDIX · FINANCIAL MODEL</div><div class="r">20 / 20</div></div>
+    <div class="chrome-min"><div class="l">APPENDIX · FINANCIAL MODEL · LOWER BOUND</div><div class="r">20 / 21</div></div>
     <div class="rg-appendix-layout">
       <div class="rg-appendix-head">
-        <h2>Appendix — Five-year P&amp;L</h2>
+        <h2>Appendix — Five-year P&amp;L, lower bound</h2>
         <p>Lower-bound scenario reaching the 2031 net-income target.</p>
       </div>
       <div class="rg-appendix-table-wrap">
@@ -2423,6 +2423,40 @@ hoursLast12M ≥ 1,250</code></pre>
         </table>
       </div>
       <div class="rg-appendix-foot t-meta"><span>LOWER-BOUND SCENARIO · ILLUSTRATIVE, UNAUDITED</span><span>MODEL V1</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide light" data-layout="S20" data-slide-id="appendix-financial-model-upper">
+  <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
+    <div class="chrome-min"><div class="l">APPENDIX · FINANCIAL MODEL · UPPER BOUND</div><div class="r">21 / 21</div></div>
+    <div class="rg-appendix-layout">
+      <div class="rg-appendix-head">
+        <h2>Appendix — Five-year P&amp;L, upper bound</h2>
+        <p>Upper-bound case: 2× revenue growth, opex scaled 1.5× for faster hiring.</p>
+      </div>
+      <div class="rg-appendix-table-wrap">
+        <table class="rg-fin-table" aria-label="RuleGrid five-year financial projection, upper-bound scenario">
+          <thead>
+            <tr><th scope="col">Line item</th><th scope="col">Year 1</th><th scope="col">Year 2</th><th scope="col">Year 3</th><th scope="col">Year 4</th><th scope="col">Year 5</th></tr>
+          </thead>
+          <tbody>
+            <tr class="rg-fin-section"><th scope="row" colspan="6">Sales</th></tr>
+            <tr><th scope="row">Subscriptions</th><td>$48,000</td><td>$240,000</td><td>$1,200,000</td><td>$6,000,000</td><td>$30,000,000</td></tr>
+            <tr><th scope="row">Advertisements</th><td class="zero">·</td><td class="zero">·</td><td class="zero">·</td><td class="zero">·</td><td class="zero">·</td></tr>
+            <tr class="rg-fin-sub"><th scope="row">Total sales</th><td>$48,000</td><td>$240,000</td><td>$1,200,000</td><td>$6,000,000</td><td>$30,000,000</td></tr>
+            <tr><th scope="row">COGS</th><td>$2,000</td><td>$2,400</td><td>$3,000</td><td>$3,400</td><td>$4,000</td></tr>
+            <tr class="rg-fin-sub"><th scope="row">Gross profit</th><td>$46,000</td><td>$237,600</td><td>$1,197,000</td><td>$5,996,600</td><td>$29,996,000</td></tr>
+            <tr class="rg-fin-section"><th scope="row" colspan="6">Opex</th></tr>
+            <tr><th scope="row">SG&amp;A</th><td>$300,000</td><td>$300,000</td><td>$300,000</td><td>$450,000</td><td>$450,000</td></tr>
+            <tr><th scope="row">R&amp;D</th><td>$450,000</td><td>$450,000</td><td>$750,000</td><td class="zero">·</td><td class="zero">·</td></tr>
+            <tr><th scope="row">Marketing</th><td>$150,000</td><td>$225,000</td><td>$225,000</td><td>$300,000</td><td>$300,000</td></tr>
+            <tr class="rg-fin-sub"><th scope="row">Total opex</th><td>$900,000</td><td>$975,000</td><td>$1,275,000</td><td>$750,000</td><td>$750,000</td></tr>
+            <tr class="rg-fin-net"><th scope="row">Net income</th><td class="neg">($854,000)</td><td class="neg">($737,400)</td><td class="neg">($78,000)</td><td>$5,246,600</td><td>$29,246,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rg-appendix-foot t-meta"><span>UPPER-BOUND SCENARIO · ILLUSTRATIVE, UNAUDITED</span><span>MODEL V1</span></div>
     </div>
   </div>
 </section>
@@ -2457,7 +2491,7 @@ hoursLast12M ≥ 1,250</code></pre>
 const SPEAKER_NOTES = [
   {id:'cover',title:'RuleGrid',section:'Elevator',purpose:'State the company and create urgency without explaining the full product.',talk:['Legal rules kill your business. We’re here to rescue you.','RuleGrid begins with a business change, not a legal search box.','The opening promise is simple: help growing companies see legal consequences before they become expensive surprises.'],transition:'Ivan now grounds that promise in the moment when legal obligations actually change.'},
   {id:'legal-complexity-blocks-growth',title:'Legal complexity blocks growth',section:'Problem',purpose:'State the two supplied problem claims with strong visual hierarchy.',talk:['LegalZoom’s 2026 survey found that one in three small business owners say compliance requirements prevented them from pursuing new opportunities.','Nine out of ten businesses don’t have anyone watching their regulatory landscape; the slide labels the ACC and LawGeex general-counsel data as a coverage proxy.','The result is that owners discover obligations late—after a decision or violation.'],transition:'The next question is why the existing options do not solve this efficiently.',sources:['https://www.legalzoom.com/press-releases/legalzoom-compliance-survey-2026','https://www.acc.com/sites/default/files/2020-02/The%202019%20General%20Counsel%20Landscape%20-%20LawGeex.pdf']},
-  {id:'broken-legal-workflow',title:'Run law in time',section:'Need',purpose:'Contrast the reliability failures of general AI with the time-based cost of professional legal research.',talk:['General AI can rely on unverified sources, apply the wrong law in time, or miss the controlling jurisdiction.','Professional legal research is billed by the hour after repeated rounds of fact collection.','Growing companies are forced to choose between low assurance and high friction.'],transition:'Austin now defines the product built to solve both sides of that workflow.',sources:['https://simpleicons.org/?q=claude','https://simpleicons.org/?q=gemini','https://simpleicons.org/?q=deepseek','https://simpleicons.org/?q=meta','https://simpleicons.org/?q=x','AI-generated from the user-provided reference: images/problem-legal-documents.png']},
+  {id:'broken-legal-workflow',title:'Two incomplete workflows',section:'Need',purpose:'Contrast the reliability failures of general AI with the time-based cost of professional legal research.',talk:['General AI can rely on unverified sources, apply the wrong law in time, or miss the controlling jurisdiction.','Professional legal research is billed by the hour after repeated rounds of fact collection.','Growing companies are forced to choose between low assurance and high friction.'],transition:'Austin now defines the product built to solve both sides of that workflow.',sources:['https://simpleicons.org/?q=claude','https://simpleicons.org/?q=gemini','https://simpleicons.org/?q=deepseek','https://simpleicons.org/?q=meta','https://simpleicons.org/?q=x','AI-generated from the user-provided reference: images/problem-legal-documents.png']},
   {id:'product-positioning',title:'RuleGrid is an enterprise growth tool',section:'Positioning',purpose:'Name the initial customer, product category, workflow, and value proposition.',talk:['RuleGrid is built for small and midsize businesses that do not have an in-house legal team.','RuleGrid is an enterprise growth tool for legal risk assessment planning your path forward.','It continuously matches the Company Profile against changing laws, identifies what applies, and tells the business what to do next.','RuleGrid provides unlimited access to 80 percent of what a lawyer can do at almost none of the cost.'],transition:'The next slide asks what makes that possible.'},
   {id:'path-forward-question',title:'How can we help in the way no one else can?',section:'Solution Setup',purpose:'Create a clean question-led handoff into the team and product demonstration.',talk:['How is it we can help you find the path forward in the way that no one else can?','The answer is not another generic legal chatbot.','It begins with a team combining law, trustworthy AI, evaluation, engineering, and market analysis.'],transition:'Meet the team building that path before seeing the product in action.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_8_5']},
   {id:'solution',title:'LexCompliance AI business view',section:'Demo',purpose:'Walk through two business-change scenarios, then reveal the complete compliance map without leaving the slide.',talk:['Enter directly at the top of Scenario 1 in the 50 percent view.','Advance to follow Scenario 1 down to its detailed obligations.','The next two advances move through Scenario 2 from top to bottom.','The final in-slide advance zooms out to show all four scenarios together.'],transition:'Xia now answers the question investors are likely asking: why not use a frontier LLM directly?',sources:['Local project asset: AutoCheck_BMoE_StyleB_IKB/lexcompliance-business-view.html?step=0']},
@@ -2474,7 +2508,8 @@ const SPEAKER_NOTES = [
   {id:'ivan-market-validation',title:'Market Validation',section:'Market validation',purpose:'Use Mosey funding and acquisition as category validation without claiming it proves RuleGrid demand.',talk:['Mosey raised an $18 million Series A and was acquired by Gusto in 2026.','This does not prove RuleGrid by itself.','It shows that investors and major business platforms already recognize compliance infrastructure as a valuable category.'],transition:'The final slide turns that opportunity into a measurable 12-month execution plan and funding ask.',sources:['https://mosey.com/blog/mosey-series-a-fundraise/','https://mosey.com/blog/mosey-is-joining-gusto/','Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · mosey-proof']},
   {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'},
   {id:'appendix-feature-comparison',title:'Appendix — Feature matrix',section:'Appendix',purpose:'Provide a detailed, transposed comparison of RuleGrid and five adjacent products.',talk:['Use this appendix only if an investor asks how the product differs feature by feature.','The comparison separates standardized formation and compliance workflows from legal RAG, reasoning, hierarchy, and precedent tracking.','Asterisks identify capabilities delivered through a lawyer-supported workflow.'],transition:'Return to the relevant discussion question.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_0_61']},
-  {id:'appendix-financial-model',title:'Appendix — Five-year P&L',section:'Appendix',purpose:'Show the full year-by-year model behind the $15M 2031 net-income target, for investors who want the underlying detail.',talk:['This is the lower-bound model behind the financial target slide.','Subscriptions grow from $24,000 in Year 1 to $15,000,000 by Year 5.','R&D spend winds down after Year 3 once the core product is built; SG&A and marketing scale with the customer base.','The company turns net-income positive in Year 4 and reaches roughly $14.5M in Year 5.'],transition:'Use this only if an investor asks to see the underlying numbers.'}
+  {id:'appendix-financial-model',title:'Appendix — Five-year P&L, lower bound',section:'Appendix',purpose:'Show the full year-by-year model behind the $15M 2031 net-income target, for investors who want the underlying detail.',talk:['This is the lower-bound model behind the financial target slide.','Subscriptions grow from $24,000 in Year 1 to $15,000,000 by Year 5.','R&D spend winds down after Year 3 once the core product is built; SG&A and marketing scale with the customer base.','The company turns net-income positive in Year 4 and reaches roughly $14.5M in Year 5.'],transition:'The next appendix page shows the upper-bound case for the same model.'},
+  {id:'appendix-financial-model-upper',title:'Appendix — Five-year P&L, upper bound',section:'Appendix',purpose:'Show an illustrative faster-growth case built on the same cost structure as the lower bound.',talk:['This upper-bound case assumes revenue grows twice as fast as the lower bound.','Opex scales 1.5x rather than 2x, reflecting operating leverage as the team and infrastructure mature.','Under this case the company approaches breakeven a full year earlier and reaches roughly $29M in net income by Year 5.','This scenario is illustrative and unaudited, meant to bound the range around the stated target, not replace it.'],transition:'Use this only if an investor asks for the bull case behind the model.'}
 ];
 window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 </script>
