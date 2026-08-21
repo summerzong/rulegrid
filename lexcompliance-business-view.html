@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LexCompliance AI — Business View</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ffffff; --panel:#f7f8fb; --line:#e5e7ee; --text:#111827; --muted:#6b7280;
+    --brand:#4f46e5; --brand-soft:#eef1ff; --navy:#1b2540;
+    --red:#e8590c; --red-soft:#fff1e6; --green:#16a34a; --green-soft:#ecfdf3;
+    --amber:#d97706; --amber-soft:#fff7e6;
+    --a-privacy:#4f46e5; --a-employ:#e8590c; --a-corp:#1b2540; --a-consumer:#0e7490; --a-platform:#7c3aed;
+    --consumer-soft:#e8f6f8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--text);background:var(--bg);font-size:14px;line-height:1.45}
+  .mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  .app{display:flex;flex-direction:column;height:100vh;min-height:0}
+  .main{flex:1;display:grid;grid-template-columns:33.25% 66.75%;min-height:0}
+
+  /* ---------- Chat ---------- */
+  .chat{display:flex;flex-direction:column;border-right:1px solid var(--line);min-height:0}
+  .chat-head{display:flex;align-items:center;gap:14px;padding:18px 26px;border-bottom:1px solid var(--line)}
+  .bot-ava{width:44px;height:44px;border-radius:10px;background:var(--brand);display:grid;place-items:center;color:#fff;flex:none}
+  .bot-ava svg{width:22px;height:22px}
+  .chat-head .name{font-weight:600;font-size:16px}
+  .chat-head .desc{font-size:13px;color:var(--muted)}
+  .online{margin-left:auto;font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--green);background:var(--green-soft);padding:6px 10px;border-radius:6px;display:flex;align-items:center;gap:6px}
+  .online::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--green)}
+  .messages{flex:1;overflow:auto;padding:24px 26px;display:flex;flex-direction:column;gap:22px}
+  .row{display:flex;gap:10px;align-items:flex-start}
+  .row.user{justify-content:flex-end}
+  .row .mini{width:36px;height:36px;border-radius:10px;flex:none;background:var(--brand);display:grid;place-items:center;color:#fff}
+  .row .mini svg{width:18px;height:18px}
+  .row.user .mini{border-radius:8px;background:linear-gradient(135deg,#c7a27c,#6b4d3a)}
+  .bubble{max-width:400px;padding:16px 20px;border-radius:14px;font-size:16px;line-height:1.55}
+  .bubble.ai{background:#f3f5ff;border:1px solid #dfe4fb;border-top-left-radius:4px}
+  .bubble.me{background:var(--navy);color:#e5e9f5;border-top-right-radius:4px}
+  .bubble ul{margin:10px 0 0 22px}
+  .bubble li{margin:4px 0}
+  .bubble .ref{font-size:13px;padding:2px 7px;border-radius:4px;background:#fff;border:1px solid #cfd5e6;color:var(--brand);font-weight:500}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+  .composer{border-top:1px solid var(--line);padding:18px 18px 14px}
+  .input{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px 12px 10px 16px;background:#fff}
+  .input input{flex:1;border:0;outline:0;font:inherit;font-size:15px;color:var(--text)}
+  .input input::placeholder{color:#a1a6b5}
+  .input .send{width:38px;height:38px;border-radius:8px;background:var(--brand);color:#fff;display:grid;place-items:center;flex:none}
+  .input svg{width:20px;height:20px;color:#4b5563}
+  .input .send svg{width:16px;height:16px;color:#fff}
+  .legal{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin:12px 0 0 10px}
+  .legal svg{width:14px;height:14px}
+
+  /* ---------- Canvas ---------- */
+  .canvas{position:relative;overflow:hidden;min-height:0;cursor:grab;background-color:#fcfcfd;
+    background-image:linear-gradient(to right,#eceef3 1px,transparent 1px),linear-gradient(to bottom,#eceef3 1px,transparent 1px);
+    background-size:48px 48px;touch-action:none;overscroll-behavior:none}
+  .canvas.is-panning{cursor:grabbing}
+  .canvas.is-panning,.canvas.is-panning *{user-select:none!important}
+  .hud{position:absolute;left:0;right:0;top:0;height:0;z-index:2;pointer-events:none}
+  .hud .toolbar,.hud .controls{pointer-events:auto}
+  .toolbar{position:absolute;left:24px;top:24px;display:flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 1px 3px rgba(16,24,40,.06)}
+  .toolbar .tab{display:flex;align-items:center;gap:8px;padding:12px 16px;font-weight:600;font-size:16px}
+  .toolbar .tab svg{width:18px;height:18px}
+  .toolbar .count{display:flex;align-items:center;gap:8px;padding:12px 18px;border-left:1px solid var(--line);font-size:14px;color:#374151}
+  .toolbar .count::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand);animation:pulse 1.2s ease-in-out infinite}
+  .controls{position:absolute;right:24px;top:24px;display:flex;align-items:center;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 1px 3px rgba(16,24,40,.06);font-size:14px}
+  .controls > div{display:flex;align-items:center;gap:10px;padding:11px 14px;border-left:1px solid var(--line)}
+  .controls > div:first-child{border-left:0}
+  .controls svg{width:16px;height:16px;color:#374151;pointer-events:none}
+  .controls .zoom{gap:12px}
+  .controls .zoom button{appearance:none;background:transparent;border:0;padding:0;margin:0;font:inherit;color:inherit;cursor:pointer;display:grid;place-items:center;line-height:1}
+  .controls .zoom-btn{width:24px;height:24px;border-radius:4px;color:#374151}
+  .controls .zoom-btn:hover{background:var(--panel);color:var(--brand)}
+  .controls .zoom-btn:disabled{opacity:.35;cursor:not-allowed;background:transparent;color:#374151}
+  .controls .zoom-level{min-width:3.25em;font-weight:600;font-variant-numeric:tabular-nums;color:#111827}
+  .controls .zoom-level:hover{color:var(--brand)}
+  .canvas .chip,.canvas button,.canvas a{cursor:pointer}
+
+  .map-world{position:absolute;left:0;top:0;display:flex;flex-direction:row;align-items:flex-start;gap:120px;padding:100px 80px 80px 40px;transform-origin:0 0;will-change:transform;user-select:none}
+  .tree-board{flex:none;width:1180px;min-width:1100px;position:relative}
+  .tree-board.s1{order:1}.tree-board.s4{order:2}.tree-board.s3{order:3}.tree-board.s2{order:4}
+  .board-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+  .root{margin:0 auto;width:max-content;max-width:560px;background:#16a34a;color:#fff;font-weight:700;font-size:24px;text-align:center;padding:16px 36px;border-radius:10px;line-height:1.25;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .tree-board.s2 .root,.tree-board.s3 .root,.tree-board.s4 .root{max-width:640px}
+  .tree-board.s2 .root{background:#2563eb}
+  .tree-board.s3 .root{background:#c026d3}
+  .tree-board.s4 .root{background:#ea580c}
+  .tree-board.s3 .proc.fin .ico,.tree-board.s3 .proc.fin.red .ico{background:#eef0f4;color:var(--a-corp)}
+  .anode.fin.open{border-color:var(--a-corp);box-shadow:0 0 0 4px #eef0f4,0 4px 14px rgba(16,24,40,.06)}
+
+  /* connectors */
+  .trunk{width:2px;height:56px;background:#d5d8e0;margin:0 auto}
+  .bus{position:relative;height:2px;background:#d5d8e0;margin:0 174px}
+  .areas{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;position:relative}
+  .areas::before{content:"";position:absolute;left:0;right:0;top:-2px;height:2px}
+  .area{position:relative;padding-top:40px}
+  .area::before{content:"";position:absolute;left:50%;top:0;width:2px;height:40px;background:#d5d8e0;transform:translateX(-1px)}
+
+  .anode{position:relative;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px 16px 22px;box-shadow:0 4px 14px rgba(16,24,40,.06);overflow:hidden;min-height:210px;display:flex;flex-direction:column;gap:8px}
+  .anode::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+  .anode .eyebrow{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .anode h3{font-size:24px;font-weight:600;line-height:1.25}
+  .anode .meta{display:flex;align-items:center;gap:8px;margin-top:auto;font-size:15.5px;color:#4b5563}
+  .badge{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:4px 8px;border-radius:4px}
+  .badge.high{background:var(--red-soft);color:var(--red)}
+  .badge.med{background:var(--amber-soft);color:var(--amber)}
+  .badge.low{background:#f1f3f7;color:#374151}
+  .anode .hint{position:absolute;right:14px;top:14px;color:#9ca3af;font-size:13px;display:flex;align-items:center;gap:4px}
+  .anode .hint svg{width:14px;height:14px}
+  .anode.working{border-style:dashed;border-color:#c7cbe0}
+  .anode.working .meta{color:var(--brand);font-weight:500}
+  .anode.working .meta::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--brand);animation:pulse 1.2s ease-in-out infinite}
+  .anode.queued{opacity:.72}
+  .anode.queued h3{color:#374151}
+  .anode.open{border-color:var(--brand);box-shadow:0 0 0 4px var(--brand-soft),0 4px 14px rgba(16,24,40,.06)}
+  .anode.open .hint{color:var(--brand)}
+  .anode.consumer.open{border-color:var(--a-consumer);box-shadow:0 0 0 4px var(--consumer-soft),0 4px 14px rgba(16,24,40,.06)}
+
+  /* expanded privacy group */
+  .expand{position:relative;margin-top:48px;border:1px solid #cfd5f5;border-radius:14px;background:rgba(255,255,255,.7);backdrop-filter:blur(2px);padding:26px 28px 28px}
+  .expand::before{content:"";position:absolute;left:calc(16.67% - 15px);top:-49px;width:2px;height:48px;background:var(--brand)}
+  .expand::after{content:"";position:absolute;left:calc(16.67% - 20px);top:-6px;width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid var(--brand)}
+  .ehead{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+  .ehead h2{font-size:28px;font-weight:600}
+  .ehead .sub{color:var(--muted);font-size:16px}
+  .ehead .legend{margin-left:auto;display:flex;align-items:center;gap:16px;font-size:14px;color:#4b5563}
+  .ehead .legend .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:6px}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:28px;align-items:stretch}
+  .proc{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:30px 30px 26px;box-shadow:0 2px 8px rgba(16,24,40,.05);display:grid;grid-template-columns:60px 1fr;column-gap:20px;row-gap:14px;grid-template-rows:auto auto auto 1fr;align-content:stretch;min-height:320px;height:100%}
+  .proc .ico{grid-row:1/span 4;align-self:start;grid-column:1}
+  .proc b{grid-column:2;grid-row:1}
+  .proc p{grid-column:2;grid-row:2}
+  .proc .fine{grid-column:2;grid-row:3;display:flex;align-items:baseline;gap:14px;background:#f7f8fb;border-radius:10px;padding:14px 18px;margin-top:6px}
+  .proc .fine small{display:block;font-size:15px;font-weight:500;color:var(--muted);margin-top:2px}
+  .proc .fine b{white-space:nowrap}
+  .trigs{grid-column:2;grid-row:2;display:flex;flex-wrap:wrap;gap:8px}
+  .trig{font-size:16px;font-weight:500;color:#374151;background:#f1f3f7;border-radius:8px;padding:7px 12px}
+  .trig.hot{background:var(--red-soft);color:var(--red);font-weight:600}
+  .anode .trigs{margin:4px 0 12px}
+  .anode .trig{font-size:14px;padding:5px 10px}
+  .proc .fine .lbl{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);flex:none}
+  .proc .fine b{font-size:26px;font-weight:700;padding:0;display:inline;color:var(--red)}
+  .proc .fine b.soft{color:var(--amber);white-space:normal;font-size:18px;line-height:1.3}
+  .proc .chips{grid-column:2;grid-row:4;align-self:end;align-items:flex-start}
+  .proc .ico{width:60px;height:60px;border-radius:14px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+  .proc .ico svg{width:26px;height:26px}
+  .proc.red .ico{background:var(--red-soft);color:var(--red)}
+  .proc.emp .ico{background:var(--red-soft);color:var(--a-employ)}
+  .proc.con .ico{background:var(--consumer-soft);color:var(--a-consumer)}
+  .proc.con.red .ico{background:var(--red-soft);color:var(--red)}
+  .proc b{font-size:28px;font-weight:600;line-height:1.3;display:block;padding-right:56px}
+  .proc p{font-size:17px;color:#374151;line-height:1.6;max-width:56ch}
+  .proc .risk{position:absolute;right:16px;top:16px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;padding-top:12px;border-top:1px dashed var(--line);width:100%}
+  .chip{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:6px;border:1px solid #cfd5e6;background:#fff;color:var(--brand);cursor:pointer;text-decoration:none;transition:background .15s,border-color .15s}
+  .chip:hover,.chip:focus-visible{background:var(--brand-soft);border-color:var(--brand);outline:none}
+  .chip svg{width:11px;height:11px;opacity:.7}
+  .chip.red{color:var(--red);border-color:#f3c9ae}
+  .chip.red:hover{background:var(--red-soft);border-color:var(--red)}
+  .chip.typing{color:var(--muted);border-style:dashed}
+  .chip.typing::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--brand);animation:pulse 1.2s ease-in-out infinite}
+
+
+  .tree{position:relative;display:grid;grid-template-columns:1fr 2px 1fr;column-gap:0;row-gap:40px;margin-top:0}
+  .trunk-line{grid-column:2;grid-row:1/span 3;background:#d5d8e0;width:2px;margin-top:-56px;min-height:100%}
+  .root{position:relative;margin-bottom:56px}
+  .root::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:56px;background:#d5d8e0;transform:translateX(-1px)}
+  .branch{position:relative}
+  .branch.l{grid-column:1;padding-right:72px}
+  .branch.r{grid-column:3;padding-left:72px;padding-top:280px}
+  .tree-board.s2 .branch.r,.tree-board.s3 .branch.r,.tree-board.s4 .branch.r{padding-top:0}
+  .branch.r1{grid-row:1}
+  .branch.r2{grid-row:2}
+  .branch::before{content:"";position:absolute;top:60px;width:72px;height:2px;background:#d5d8e0}
+  .branch.l::before{right:0}
+  .branch.r::before{left:0;top:340px}
+  .tree-board.s2 .branch.r::before,.tree-board.s3 .branch.r::before,.tree-board.s4 .branch.r::before{top:60px}
+  .branch.open::before{background:var(--brand)}
+  .branch .sub{position:relative;margin:36px 0 0 40px;display:grid;grid-template-rows:1fr 1fr;gap:24px}
+  .branch .sub::before{content:"";position:absolute;left:-20px;top:-36px;bottom:0;width:2px;background:var(--brand);opacity:.5}
+  .branch .sub .proc{position:relative}
+  .branch .sub .proc::before{content:"";position:absolute;left:-20px;top:50%;width:20px;height:2px;background:var(--brand);opacity:.5}
+  .tree-board.s2 .branch.l .sub,.tree-board.s3 .branch.l .sub,.tree-board.s3 .branch.r .sub,.tree-board.s4 .branch.l .sub,.tree-board.s4 .branch.r .sub{grid-template-rows:none}
+  .tree-board.s2 .branch.r.open::before{background:var(--a-consumer)}
+  .tree-board.s2 .branch.r .sub::before,.tree-board.s2 .branch.r .sub .proc::before{background:var(--a-consumer)}
+  .tree-board.s2 .proc .fine{flex-wrap:wrap;align-items:flex-start;overflow:hidden;min-width:0}
+  .tree-board.s2 .proc .fine b{white-space:normal;font-size:18px;line-height:1.3;min-width:0;flex:1 1 8em;overflow-wrap:break-word;word-break:break-word}
+  .tree-board.s2 .proc .fine b.soft{font-size:16px}
+  .tree-board.s3 .branch.l.open::before{background:var(--a-corp)}
+  .tree-board.s3 .branch.l .sub::before,.tree-board.s3 .branch.l .sub .proc::before{background:var(--a-corp)}
+  .tree-board.s3 .branch.r.open::before{background:var(--a-consumer)}
+  .tree-board.s3 .branch.r .sub::before,.tree-board.s3 .branch.r .sub .proc::before{background:var(--a-consumer)}
+  .tree-board.s3 .proc:not(.queued){min-height:280px;padding:22px 22px 18px}
+  .tree-board.s3 .proc:not(.queued) b{font-size:24px}
+  .tree-board.s3 .proc .fine b.soft{font-size:17px}
+  .tree-board.s3 .proc.fin .fine b{white-space:normal;font-size:18px;line-height:1.3}
+  .tree-board.s3 .proc.queued{display:flex;flex-direction:column;gap:6px;min-height:0;height:auto;padding:12px 14px 12px 16px;opacity:.72;border-style:dashed;border-color:#c7cbe0;grid-template-columns:unset;grid-template-rows:unset}
+  .tree-board.s3 .proc.queued b{font-size:16px;padding-right:0;grid-column:unset;grid-row:unset}
+  .tree-board.s3 .proc.queued .trigs{grid-column:unset;grid-row:unset;margin:0}
+  .tree-board.s3 .proc.queued .trig{font-size:13px;padding:4px 8px}
+  .tree-note{margin:28px auto 0;max-width:720px;text-align:center;font-size:12px;color:var(--muted);line-height:1.45}
+
+  /* Scenario 4 — India hire */
+  .tree-board.s4 .tree{grid-template-rows:auto auto;row-gap:28px}
+  .tree-board.s4 .decide{grid-column:1/-1;grid-row:1;position:relative;justify-self:center;width:100%;max-width:680px;z-index:1}
+  .tree-board.s4 .decide::after{content:"";position:absolute;left:50%;top:100%;width:2px;height:28px;background:#d5d8e0;transform:translateX(-1px)}
+  .tree-board.s4 .trunk-line{grid-row:2;margin-top:-28px}
+  .tree-board.s4 .branch{grid-row:2}
+  .decide-node{background:#fff;border:2px solid var(--brand);border-radius:10px;padding:12px 18px 14px;text-align:center;box-shadow:0 0 0 4px var(--brand-soft),0 4px 14px rgba(16,24,40,.06)}
+  .decide-node > b{display:block;font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--navy);line-height:1.3}
+  .decide-node .decide-sub{margin:6px 0 10px;font-size:12px;color:var(--muted);line-height:1.4}
+  .decide-paths{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
+  .dpath{background:#f7f8fb;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.35;color:#374151}
+  .dpath span{display:block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);margin-bottom:2px}
+  .dpath strong{display:block;font-size:13px;font-weight:600;color:var(--text)}
+  .dpath em{display:block;font-style:normal;color:var(--muted);margin-top:2px}
+  .dpath.a{border-left:3px solid var(--a-employ)}
+  .dpath.b{border-left:3px solid var(--a-corp)}
+  .tree-board.s4 .anode{min-height:0;padding:14px 16px 14px 20px}
+  .tree-board.s4 .ca-note{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;font-size:12px;color:var(--muted);line-height:1.4}
+  .tree-board.s4 .ca-note .chip{font-size:12px;padding:4px 8px}
+  .tree-board.s4 .branch.l.open::before{background:var(--a-employ)}
+  .tree-board.s4 .branch.l .sub::before,.tree-board.s4 .branch.l .sub .proc::before{background:var(--a-employ)}
+  .tree-board.s4 .branch.r.open::before{background:var(--a-corp)}
+  .tree-board.s4 .branch.r .sub::before,.tree-board.s4 .branch.r .sub .proc::before{background:var(--a-corp)}
+  .tree-board.s4 .anode.xborder.open{border-color:var(--a-corp);box-shadow:0 0 0 4px #eef0f4,0 4px 14px rgba(16,24,40,.06)}
+  .tree-board.s4 .proc.xborder .ico{background:#eef0f4;color:var(--a-corp)}
+  .tree-board.s4 .proc.xborder.red .ico{background:var(--red-soft);color:var(--red)}
+  .tree-board.s4 .proc:not(.queued):not(.sec){min-height:248px;padding:18px 18px 16px}
+  .tree-board.s4 .proc:not(.queued):not(.sec) b{font-size:22px}
+  .tree-board.s4 .proc .fine b.soft{font-size:16px}
+  .tree-board.s4 .proc .fine b{white-space:normal;font-size:17px;line-height:1.3}
+  .tree-board.s4 .proc.queued{display:flex;flex-direction:column;gap:6px;min-height:0;height:auto;padding:12px 14px 12px 16px;opacity:.72;border-style:dashed;border-color:#c7cbe0;grid-template-columns:unset;grid-template-rows:unset}
+  .tree-board.s4 .proc.queued b{font-size:16px;padding-right:0;grid-column:unset;grid-row:unset}
+  .tree-board.s4 .proc.queued .trigs{grid-column:unset;grid-row:unset;margin:0}
+  .tree-board.s4 .proc.queued .trig{font-size:13px;padding:4px 8px}
+  .tree-board.s4 .proc.sec{min-height:0;height:auto;padding:14px 16px;grid-template-columns:40px 1fr;column-gap:12px;row-gap:8px;grid-template-rows:auto auto auto auto;background:#fafbfe;border-color:#cfd5e6;opacity:.92}
+  .tree-board.s4 .proc.sec .ico{width:40px;height:40px;border-radius:10px;grid-row:1/span 4}
+  .tree-board.s4 .proc.sec .ico svg{width:20px;height:20px}
+  .tree-board.s4 .proc.sec b{font-size:16px;padding-right:0}
+  .tree-board.s4 .proc.sec p,.tree-board.s4 .proc.sec .trigs{font-size:13px}
+  .tree-board.s4 .proc.sec .fine{padding:10px 12px;margin-top:0}
+  .tree-board.s4 .proc.sec .fine b.soft{font-size:14px}
+  .tree-board.s4 .proc.sec .chips{padding-top:8px}
+  .tree-board.s4 .proc.sec .chip{font-size:13px;padding:6px 10px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="main">
+
+    <!-- ===== Chat ===== -->
+    <aside class="chat">
+      <div class="chat-head">
+        <div class="bot-ava"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M8 13h.01M16 13h.01M9 16h6"/></svg></div>
+        <div>
+          <div class="name">Mike</div>
+          <div class="desc">Your AI advisor for business compliance</div>
+        </div>
+        <span class="online">ONLINE</span>
+      </div>
+
+      <div class="messages">
+        <div class="row">
+          <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M8 13h.01M16 13h.01M9 16h6"/></svg></div>
+          <div class="bubble ai">Hello. What business legal challenges are we going to overcome today?</div>
+        </div>
+        <div class="row user">
+          <div class="bubble me">I'm going to relocate from Texas to California.</div>
+          <div class="mini"></div>
+        </div>
+        <div class="row">
+          <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M8 13h.01M16 13h.01M9 16h6"/></svg></div>
+          <div class="bubble ai">
+            Got it. To map the obligations accurately, I need a few details:
+            <ul>
+              <li>How many people are on your team?</li>
+              <li>Where is the company incorporated?</li>
+              <li>What does the business do?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="row user">
+          <div class="bubble me">We have a team of 30. We're a Delaware C-Corp. It's a matching dating app. What should I expect in California?</div>
+          <div class="mini"></div>
+        </div>
+        <div class="row">
+          <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M8 13h.01M16 13h.01M9 16h6"/></svg></div>
+          <div class="bubble ai">I'm mapping your obligations across the 3 areas of law that apply to a business in California. I started with <b>Privacy &amp; Data</b> — for a dating app it carries the most exposure: you collect sexual orientation and precise location, which the CCPA treats as <span class="ref">sensitive personal information</span>.</div>
+        </div>
+
+        <div class="row">
+          <div class="mini"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="3"/><path d="M12 3v4M8 13h.01M16 13h.01M9 16h6"/></svg></div>
+          <div class="bubble ai">Privacy is on the map. Every business process is linked to the exact section that governs it — click a section to read it. While I finish Corporate &amp; Tax, you can ask about any process.</div>
+        </div>
+      </div>
+
+      <div class="composer">
+        <div class="input">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.5l-8.5 8.5a5.5 5.5 0 0 1-7.8-7.8l9-9a3.5 3.5 0 0 1 5 5l-9 9a1.5 1.5 0 0 1-2.1-2.1l8.3-8.3"/></svg>
+          <input placeholder="Ask about any process — e.g. “Do we need an opt-in for under-16 users?”">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+          <span class="send"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></span>
+        </div>
+        <div class="legal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg> AI-generated analysis. Verify critical legal decisions with qualified counsel.</div>
+      </div>
+    </aside>
+
+    <!-- ===== Canvas ===== -->
+    <section class="canvas">
+      <div class="hud">
+        <div class="toolbar">
+          <div class="tab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="6" height="5" rx="1"/><rect x="15" y="4" width="6" height="5" rx="1"/><rect x="9" y="15" width="6" height="5" rx="1"/><path d="M6 9v3h12V9M12 12v3"/></svg> Compliance Map</div>
+          <div class="count">4 scenarios</div>
+        </div>
+        <div class="controls">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg> Filter</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h10M4 17h6"/></svg></div>
+          <div class="zoom">
+            <button type="button" class="zoom-btn" id="zoom-out" aria-label="Zoom out">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>
+            </button>
+            <button type="button" class="zoom-level" id="zoom-reset" aria-label="Reset zoom to 100%">100%</button>
+            <button type="button" class="zoom-btn" id="zoom-in" aria-label="Zoom in">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 9V5a1 1 0 0 1 1-1h4M20 9V5a1 1 0 0 0-1-1h-4M4 15v4a1 1 0 0 0 1 1h4M20 15v4a1 1 0 0 1-1 1h-4"/></svg></div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M4 21h16"/></svg> Export</div>
+        </div>
+      </div>
+
+      <div class="map-world" id="map-world">
+        <div class="tree-board s1">
+          <div class="board-label">Scenario 1 · CA hire</div>
+          <div class="root">Hiring a Team in California</div>
+        <div class="tree">
+          <div class="trunk-line"></div>
+          <div class="branch l r1 open">
+            <div class="anode open" style="--accent:var(--a-privacy)">
+                            <span class="eyebrow">Area 1</span>
+              <h3>Privacy &amp; Data</h3>
+              <div class="meta"><span class="badge high">High risk</span> 2 of 4 processes shown</div>
+            </div>
+            <div class="sub">
+                          <div class="proc red">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+              <b>Collecting user data</b>
+              <div class="trigs"><span class="trig hot">Sexual orientation</span><span class="trig hot">Precise location</span><span class="trig">Photos</span><span class="trig">Notice at collection</span></div>
+              <div class="fine"><span class="lbl">Fine</span><b>$2,663 – $7,988 <small>per violation</small></b></div>
+              <div class="chips"><span class="chip" tabindex="0">§1798.100 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="chip red" tabindex="0">§1798.140(ae) <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+            </div>
+                          <div class="proc red">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5 5 0 0 0-8.8-3.2 5 5 0 0 0-8.8 3.2c0 5.4 8.8 11 8.8 11s8.8-5.6 8.8-11z"/></svg></div>
+              <b>Matching &amp; sensitive data</b>
+              <div class="trigs"><span class="trig hot">Algorithmic matching</span><span class="trig hot">Right to limit</span><span class="trig">Automated decisions</span></div>
+              <div class="fine"><span class="lbl">Fine</span><b>$7,988 <small>per intentional violation</small></b></div>
+              <div class="chips"><span class="chip red" tabindex="0">§1798.121 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="chip" tabindex="0">CPPA ADMT regs <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+            </div>
+            </div>
+          </div>
+          <div class="branch r r1 open">
+            <div class="anode open" style="--accent:var(--a-employ)">
+              <span class="eyebrow">Area 2</span>
+              <h3>Employment &amp; Labor</h3>
+              <div class="trigs"><span class="trig hot">PAGA</span><span class="trig hot">AB5</span><span class="trig">Wage &amp; hour</span></div>
+              <div class="meta"><span class="badge high">High risk</span> 2 of 5 processes shown</div>
+            </div>
+            <div class="sub">
+              <div class="proc red emp">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2L12 3zM12 10v4M12 17h.01"/></svg></div>
+              <b>PAGA wage claims</b>
+              <div class="trigs"><span class="trig hot">Meal &amp; rest breaks</span><span class="trig hot">Overtime</span><span class="trig">Pay stubs</span><span class="trig">Representative action</span></div>
+              <div class="fine"><span class="lbl">Penalty</span><b>$100 – $200 <small>per employee · per pay period</small></b></div>
+              <div class="chips"><span class="chip red" tabindex="0">Lab. §2699 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="chip" tabindex="0">Lab. §226.7 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="chip" tabindex="0">Lab. §226 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+            </div>
+              <div class="proc red emp">
+              <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20a6 6 0 0 1 12 0M14 20a4.5 4.5 0 0 1 7.5-3.3"/></svg></div>
+              <b>Contractor classification</b>
+              <div class="trigs"><span class="trig hot">ABC test</span><span class="trig hot">1099 contractors</span><span class="trig">Remote hires</span></div>
+              <div class="fine"><span class="lbl">Penalty</span><b>$5,000 – $25,000 <small>per misclassification</small></b></div>
+              <div class="chips"><span class="chip red" tabindex="0">Lab. §2775 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span><span class="chip red" tabindex="0">Lab. §226.8 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span></div>
+            </div>
+            </div>
+          </div>
+          <div class="branch l r2">
+            <div class="anode working" style="--accent:var(--a-corp)">
+              <span class="hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></span>
+              <span class="eyebrow">Area 3</span>
+              <h3>Corporate &amp; Tax</h3>
+              <div class="trigs"><span class="trig">Foreign qualification</span><span class="trig">EDD</span><span class="trig">Franchise tax</span></div>
+              <div class="meta">mapping…</div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="tree-board s2">
+          <div class="board-label">Scenario 2 · Astrology</div>
+          <div class="root">Adding Astrology-Based Matching</div>
+          <div class="tree">
+            <div class="trunk-line"></div>
+            <div class="branch l open">
+              <div class="anode open" style="--accent:var(--a-privacy)">
+                <span class="eyebrow">Area 1</span>
+                <h3>Privacy &amp; Data</h3>
+                <div class="meta"><span class="badge high">High risk</span> 3 of 5 processes shown</div>
+              </div>
+              <div class="sub">
+                <div class="proc red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
+                  <b>Collecting astrology data</b>
+                  <div class="trigs">
+                    <span class="trig hot">Date of birth</span>
+                    <span class="trig hot">Birth time</span>
+                    <span class="trig hot">Birth location</span>
+                    <span class="trig">Profile data</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Potential exposure</span><b>$2,500 – $7,500 <small>per violation</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1798.100." target="_blank" rel="noopener">§1798.100 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1798.140." target="_blank" rel="noopener">§1798.140 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V5"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.6 6.5a3 3 0 1 0-5.2-3 3 3 0 0 0-5.2 3 3.5 3.5 0 0 0-1.4 5.8 4 4 0 0 0 .8 6.2A4 4 0 0 0 12 21a4 4 0 0 0 5.4-2.5 4 4 0 0 0 .8-6.2 3.5 3.5 0 0 0-1.4-5.8z"/></svg></div>
+                  <b>Astrology-based profiling</b>
+                  <div class="trigs">
+                    <span class="trig">Personality profile</span>
+                    <span class="trig hot">Compatibility score</span>
+                    <span class="trig hot">User profiling</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Potential exposure</span><b>$2,500 – $7,500 <small>per violation</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&amp;division=3.&amp;title=1.81.5.&amp;part=4.&amp;chapter=&amp;article=" target="_blank" rel="noopener">CCPA / CPRA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://cppa.ca.gov/regulations/" target="_blank" rel="noopener">CPPA Regulations <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 8.6a5 5 0 0 0-8.8-3.2 5 5 0 0 0-8.8 3.2c0 5.4 8.8 11 8.8 11s8.8-5.6 8.8-11z"/></svg></div>
+                  <b>Astrology matching &amp; recommendations</b>
+                  <div class="trigs">
+                    <span class="trig hot">Algorithmic matching</span>
+                    <span class="trig">Compatibility score</span>
+                    <span class="trig">Recommendations</span>
+                    <span class="trig hot">Automated processing</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Potential exposure</span><b>$7,500 <small>per intentional violation</small></b></div>
+                  <div class="chips">
+                    <a class="chip red" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1798.121." target="_blank" rel="noopener">§1798.121 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://cppa.ca.gov/regulations/ccpa_updates.html" target="_blank" rel="noopener">ADMT Regulations <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch r open">
+              <div class="anode open consumer" style="--accent:var(--a-consumer)">
+                <span class="eyebrow">Area 2</span>
+                <h3>Product &amp; Consumer Rights</h3>
+                <div class="meta"><span class="badge med">Medium–high risk</span> 2 of 4 processes shown</div>
+              </div>
+              <div class="sub">
+                <div class="proc con">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 4-1 1 5 5 1-1a2 2 0 0 0 0-2.8L17.8 4A2 2 0 0 0 15 4z"/><path d="m14 5-9 9-1.5 4.5L8 17l9-9"/><path d="M9 11l4 4"/></svg></div>
+                  <b>Explaining astrology recommendations</b>
+                  <div class="trigs">
+                    <span class="trig">Why this match?</span>
+                    <span class="trig hot">Automated recommendation</span>
+                    <span class="trig">User transparency</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Regulatory risk</span><b class="soft">Consumer transparency &amp; disclosure <small>requires legal review</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&amp;division=3.&amp;title=1.81.5.&amp;part=4.&amp;chapter=&amp;article=" target="_blank" rel="noopener">CCPA / CPRA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://privacy.ca.gov/" target="_blank" rel="noopener">Consumer Notice <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc con red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><circle cx="12" cy="4" r="1"/></svg></div>
+                  <b>Deleting astrology profile</b>
+                  <div class="trigs">
+                    <span class="trig hot">Delete birth data</span>
+                    <span class="trig">Delete compatibility profile</span>
+                    <span class="trig">Data retention</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Potential exposure</span><b>$2,500 – $7,500 <small>per violation</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1798.105." target="_blank" rel="noopener">Right to Delete · §1798.105 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=CIV&amp;division=3.&amp;title=1.81.5.&amp;part=4.&amp;chapter=&amp;article=" target="_blank" rel="noopener">CCPA / CPRA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="tree-note">Amounts are illustrative CPPA-scale administrative exposure, subject to applicability and legal review. Astrology is not itself treated as a prohibited or automatically sensitive category.</p>
+        </div>
+
+        <div class="tree-board s3">
+          <div class="board-label">Scenario 3 · Crypto payments</div>
+          <div class="root">Adding Crypto Payments</div>
+          <div class="tree">
+            <div class="trunk-line"></div>
+            <div class="branch l open">
+              <div class="anode open fin" style="--accent:var(--a-corp)">
+                <span class="eyebrow">Area 1</span>
+                <h3>Financial Regulation &amp; AML</h3>
+                <div class="meta"><span class="badge high">High risk</span> 3 of 5 processes shown</div>
+              </div>
+              <div class="sub">
+                <div class="proc fin red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18"/><rect x="14" y="13" width="4" height="3" rx="1"/></svg></div>
+                  <b>Crypto payment processing</b>
+                  <div class="trigs">
+                    <span class="trig">Bitcoin / stablecoins</span>
+                    <span class="trig hot">Wallet payments</span>
+                    <span class="trig">Subscription payments</span>
+                    <span class="trig hot">Third-party processor</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Regulatory review</span><b>Payment model determines licensing obligations <small>Direct acceptance, custody, conversion or transmission may create additional regulatory obligations. Using CVC to buy goods or services on the company’s own behalf is generally not MSB activity under FinCEN guidance.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.fincen.gov/resources/statutes-regulations/guidance/application-fincens-regulations-persons-administering" target="_blank" rel="noopener">FinCEN Virtual Currency Guidance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://dfpi.ca.gov/regulated-industries/digital-financial-assets/" target="_blank" rel="noopener">CA DFPI DFAL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc fin red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/><path d="M8 11h8"/></svg></div>
+                  <b>Money transmission &amp; licensing</b>
+                  <div class="trigs">
+                    <span class="trig hot">Custody</span>
+                    <span class="trig hot">Transfer of crypto</span>
+                    <span class="trig">Fiat conversion</span>
+                    <span class="trig">California users</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Potential exposure</span><b>License / enforcement risk <small>Determine whether the company’s activity constitutes regulated digital-financial-asset or money-transmission activity. DFPI DFAL licensing for covered activity involving California residents applies from July 1, 2026, subject to requirements and exemptions.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://dfpi.ca.gov/regulated-industries/digital-financial-assets/" target="_blank" rel="noopener">CA DFAL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displayText.xhtml?lawCode=FIN&amp;division=1.2.&amp;title=&amp;part=&amp;chapter=1.&amp;article=" target="_blank" rel="noopener">CA Money Transmission Act <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.fincen.gov/resources/money-services-business-msb-registration" target="_blank" rel="noopener">FinCEN MSB Rules <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc fin red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                  <b>AML &amp; transaction monitoring</b>
+                  <div class="trigs">
+                    <span class="trig">Transaction monitoring</span>
+                    <span class="trig">Wallet screening</span>
+                    <span class="trig hot">Suspicious activity</span>
+                    <span class="trig">Recordkeeping</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Compliance risk</span><b>AML / reporting obligations <small>Obligations depend on whether the company or its provider is conducting regulated money-transmission or MSB activity.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.fincen.gov/resources/statutes-and-regulations/bank-secrecy-act" target="_blank" rel="noopener">BSA / FinCEN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.fincen.gov/sites/default/files/2019-05/FinCEN%20Guidance%20CVC%20FINAL%20508.pdf" target="_blank" rel="noopener">MSB Guidance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Crypto custody</b>
+                  <div class="trigs">
+                    <span class="trig">Private keys</span>
+                    <span class="trig">Customer assets</span>
+                    <span class="trig">Custody provider</span>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Sanctions screening</b>
+                  <div class="trigs">
+                    <span class="trig">OFAC</span>
+                    <span class="trig">Wallet screening</span>
+                    <span class="trig">Blocked addresses</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch r open">
+              <div class="anode open consumer" style="--accent:var(--a-consumer)">
+                <span class="eyebrow">Area 2</span>
+                <h3>Consumer Payments &amp; Tax</h3>
+                <div class="meta"><span class="badge med">Medium–high risk</span> 3 of 5 processes shown</div>
+              </div>
+              <div class="sub">
+                <div class="proc con">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v18l-2.5-1.5L12 21l-2.5-1.5L7 21V3z"/><path d="M10 8h4M10 12h4M10 16h3"/></svg></div>
+                  <b>Crypto payment disclosures</b>
+                  <div class="trigs">
+                    <span class="trig hot">Exchange rate</span>
+                    <span class="trig">Fees</span>
+                    <span class="trig">Payment confirmation</span>
+                    <span class="trig hot">Price volatility</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Consumer risk</span><b class="soft">Clear pricing &amp; payment terms <small>Users should understand the crypto amount, applicable fees, exchange-rate treatment and when payment is considered complete.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&amp;sectionNum=17200." target="_blank" rel="noopener">Consumer Protection <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1770." target="_blank" rel="noopener">Payment Terms <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc con">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10M17 7l-3-3M17 7l-3 3M17 17H7M7 17l3-3M7 17l3 3"/></svg></div>
+                  <b>Crypto refunds &amp; failed payments</b>
+                  <div class="trigs">
+                    <span class="trig hot">Refund policy</span>
+                    <span class="trig">Failed transactions</span>
+                    <span class="trig">Overpayment</span>
+                    <span class="trig">Wallet errors</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Operational risk</span><b class="soft">Irreversible transaction handling <small>Crypto transactions may not provide the same reversal mechanism as card payments.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1750." target="_blank" rel="noopener">Refund Policy <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=BPC&amp;sectionNum=17500." target="_blank" rel="noopener">Consumer Disclosures <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc con">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 8h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg></div>
+                  <b>Crypto accounting &amp; tax</b>
+                  <div class="trigs">
+                    <span class="trig">Transaction value</span>
+                    <span class="trig hot">USD conversion</span>
+                    <span class="trig">Revenue recognition</span>
+                    <span class="trig">Tax records</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Financial reporting risk</span><b class="soft">Accurate transaction records required <small>Record the relevant transaction value and maintain documentation for accounting and tax purposes.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.irs.gov/filing/digital-assets" target="_blank" rel="noopener">IRS Digital Assets <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.irs.gov/businesses/small-businesses-self-employed/recordkeeping" target="_blank" rel="noopener">Tax Records <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Third-party crypto provider</b>
+                  <div class="trigs">
+                    <span class="trig">Processor</span>
+                    <span class="trig">Data sharing</span>
+                    <span class="trig">Vendor compliance</span>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Transaction reconciliation</b>
+                  <div class="trigs">
+                    <span class="trig">Blockchain records</span>
+                    <span class="trig">Payment status</span>
+                    <span class="trig">Accounting</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="tree-note">Illustrative regulatory map; architecture-dependent; not a determination that the company is an MSB or DFAL licensee. Who receives the crypto — a third-party regulated provider or the company directly — and whether the company holds, converts, transmits, or controls customer crypto drives the analysis. Using CVC to buy goods or services on one’s own behalf is generally not an MSB; accepting, transmitting, or exchanging can be money transmission depending on facts.</p>
+        </div>
+
+        <div class="tree-board s4">
+          <div class="board-label">Scenario 4 · India hire</div>
+          <div class="root">Hiring a Contractor from India</div>
+          <div class="tree">
+            <div class="decide">
+              <div class="decide-node">
+                <b>How will the worker actually work?</b>
+                <p class="decide-sub">Not an automatic legal determination. Classification follows the actual working relationship — not the contract label, payment method, or a 1099. IRS common-law factors: behavioral control, financial control, and the relationship of the parties.</p>
+                <div class="decide-paths">
+                  <div class="dpath a"><span>Path A</span><strong>Employee-like relationship</strong><em>W-2 / employment analysis</em></div>
+                  <div class="dpath b"><span>Path B</span><strong>Independent business relationship</strong><em>Contractor / foreign-vendor analysis</em></div>
+                </div>
+              </div>
+            </div>
+            <div class="trunk-line"></div>
+            <div class="branch l open">
+              <div class="anode open" style="--accent:var(--a-employ)">
+                <span class="eyebrow">Area 1</span>
+                <h3>Worker Classification</h3>
+                <div class="meta"><span class="badge high">High risk</span> 3 of 5 processes shown</div>
+                <div class="ca-note">
+                  California worker? Review California classification rules —
+                  <a class="chip" href="https://www.dir.ca.gov/dlse/faq_independentcontractor.htm" target="_blank" rel="noopener">ABC / Borello / exemption <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  ABC applies to most workers in California, with exceptions. Do not auto-apply ABC to a worker physically in India.
+                </div>
+              </div>
+              <div class="sub">
+                <div class="proc red emp">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v16M8 19h8"/><path d="M6 8h5M13 8h5"/><path d="M8.5 8L5 14h7L8.5 8zM15.5 8L12 14h7L15.5 8z"/></svg></div>
+                  <b>Employee vs contractor classification</b>
+                  <div class="trigs">
+                    <span class="trig hot">W-2 employee</span>
+                    <span class="trig hot">Independent contractor</span>
+                    <span class="trig">Control</span>
+                    <span class="trig">Work relationship</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Classification risk</span><b class="soft">Actual relationship controls <small>The contract label or payment method does not by itself determine worker status.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.irs.gov/businesses/small-businesses-self-employed/independent-contractor-self-employed-or-employee" target="_blank" rel="noopener">IRS Common-Law Rules <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.irs.gov/publications/p15a" target="_blank" rel="noopener">IRC Employment Rules <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc red emp">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="2"/><circle cx="14" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></svg></div>
+                  <b>Control &amp; independence</b>
+                  <div class="trigs">
+                    <span class="trig hot">Work instructions</span>
+                    <span class="trig">Working hours</span>
+                    <span class="trig hot">Supervision</span>
+                    <span class="trig">Tools &amp; methods</span>
+                  </div>
+                  <div class="fine"><span class="lbl">High risk</span><b class="soft">Employee-like control <small>Greater company control over how, when and where work is performed can support employee classification.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.irs.gov/businesses/small-businesses-self-employed/behavioral-control" target="_blank" rel="noopener">IRS Behavioral Control <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.dol.gov/agencies/whd/flsa/misclassification" target="_blank" rel="noopener">DOL Economic Reality <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc emp">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/></svg></div>
+                  <b>Economic dependence</b>
+                  <div class="trigs">
+                    <span class="trig">Multiple clients</span>
+                    <span class="trig hot">Profit / loss</span>
+                    <span class="trig">Business investment</span>
+                    <span class="trig">Permanence</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Classification review</span><b class="soft">Independent business vs economic dependence <small>The worker's opportunity for profit or loss, investment, permanence and independence can affect classification. DOL announced a 2026 proposed rule revising FLSA classification toward economic-reality focused on control and opportunity for profit or loss; do not treat the proposal as final law.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.dol.gov/agencies/whd/flsa/misclassification/2026rulemaking" target="_blank" rel="noopener">DOL FLSA Test <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.dol.gov/agencies/whd/flsa/misclassification/2026rulemaking/faqs" target="_blank" rel="noopener">Economic Reality <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Misclassification &amp; back pay</b>
+                  <div class="trigs">
+                    <span class="trig">Wages</span>
+                    <span class="trig">Overtime</span>
+                    <span class="trig">Benefits</span>
+                    <span class="trig">Payroll taxes</span>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Worker agreement vs actual practice</b>
+                  <div class="trigs">
+                    <span class="trig">Contract terms</span>
+                    <span class="trig">Actual conduct</span>
+                    <span class="trig">Control</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="branch r open">
+              <div class="anode open xborder" style="--accent:var(--a-corp)">
+                <span class="eyebrow">Area 2</span>
+                <h3>Cross-Border Employment &amp; Tax</h3>
+                <div class="meta"><span class="badge high">High risk</span> 3 of 5 processes shown</div>
+              </div>
+              <div class="sub">
+                <div class="proc xborder red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+                  <b>Where the work is performed</b>
+                  <div class="trigs">
+                    <span class="trig hot">India</span>
+                    <span class="trig">Remote work</span>
+                    <span class="trig">U.S. company</span>
+                    <span class="trig hot">Foreign-source services</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Tax source review</span><b class="soft">Work location matters <small>For personal services, the place where the services are performed generally determines the source of the income — regardless of where the contract was made or payment is made. Compensation for services outside the U.S. is generally foreign-source for a nonresident alien; U.S. services can create U.S.-source income and withholding.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.irs.gov/publications/p519" target="_blank" rel="noopener">IRS Source Rules <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://uscode.house.gov/view.xhtml?req=(title:26%20section:861%20edition:prelim)" target="_blank" rel="noopener">IRC §861 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc xborder">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h8l5 5v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M15 3v5h5M9 13h6M9 17h4"/></svg></div>
+                  <b>Foreign contractor documentation</b>
+                  <div class="trigs">
+                    <span class="trig hot">W-8BEN</span>
+                    <span class="trig">Tax residency</span>
+                    <span class="trig">Vendor records</span>
+                    <span class="trig">Payment records</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Tax compliance</span><b class="soft">Documentation depends on status + service location <small>Correct documentation required. Determine the worker's status, location of services and applicable withholding/reporting requirements before payment.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.irs.gov/forms-pubs/about-form-w-8-ben" target="_blank" rel="noopener">IRS W-8BEN <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.irs.gov/forms-pubs/about-form-1042-s" target="_blank" rel="noopener">Form 1042-S <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc xborder red">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 14h4M14 14h.01"/></svg></div>
+                  <b>W-2 employee arrangement</b>
+                  <div class="trigs">
+                    <span class="trig hot">Payroll</span>
+                    <span class="trig">W-4</span>
+                    <span class="trig hot">Employment taxes</span>
+                    <span class="trig">Benefits</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Employer obligations</span><b class="soft">Payroll &amp; employment compliance <small>If the relationship is employment, evaluate applicable payroll, withholding, Social Security/Medicare and employment-law obligations.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://www.irs.gov/forms-pubs/about-form-w-2" target="_blank" rel="noopener">IRS W-2 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://www.irs.gov/businesses/small-businesses-self-employed/understanding-employment-taxes" target="_blank" rel="noopener">Employment Tax <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>India tax / local compliance &amp; permanent establishment</b>
+                  <div class="trigs">
+                    <span class="trig">Indian tax rules</span>
+                    <span class="trig">Local registration</span>
+                    <span class="trig">Withholding</span>
+                    <span class="trig">Authority</span>
+                    <span class="trig">Business activity</span>
+                    <span class="trig">India presence</span>
+                  </div>
+                </div>
+                <div class="proc queued">
+                  <b>Intellectual property &amp; confidentiality</b>
+                  <div class="trigs">
+                    <span class="trig">IP ownership</span>
+                    <span class="trig">NDA</span>
+                    <span class="trig">Source code</span>
+                    <span class="trig">Data access</span>
+                  </div>
+                </div>
+                <div class="proc sec xborder">
+                  <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z"/><ellipse cx="12" cy="11" rx="5" ry="1.6"/><path d="M7 11v3c0 .9 2.2 1.6 5 1.6s5-.7 5-1.6v-3"/></svg></div>
+                  <b>Contractor access to user data</b>
+                  <div class="trigs">
+                    <span class="trig">User profiles</span>
+                    <span class="trig">Source code</span>
+                    <span class="trig hot">Sensitive data</span>
+                    <span class="trig">Production access</span>
+                  </div>
+                  <div class="fine"><span class="lbl">Data &amp; security risk</span><b class="soft">Cross-border access controls <small>An India-based worker may access application systems or user information, creating additional privacy, security and contractual review requirements.</small></b></div>
+                  <div class="chips">
+                    <a class="chip" href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&amp;sectionNum=1798.100." target="_blank" rel="noopener">CCPA / CPRA <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                    <a class="chip" href="https://cppa.ca.gov/regulations/" target="_blank" rel="noopener">Data Processing Controls <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="tree-note">Fact-dependent map for a Delaware C-Corp dating app hiring a software/technical worker in India; not a classification determination. Actual working relationship drives employee vs independent-contractor analysis; service location separately drives U.S. sourcing, withholding and reporting.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<script>
+(function () {
+  var MIN = 0.04, MAX = 2, STEP = 0.25;
+  var zoom = 1, panX = 0, panY = 0, cameraStep = 0, cameraAnimation = 0;
+  var world = document.getElementById("map-world") || document.querySelector(".map-world");
+  var canvas = document.querySelector(".canvas");
+  var boards = world ? ["s1", "s4", "s3", "s2"].map(function (name) {
+    return world.querySelector(".tree-board." + name);
+  }).filter(Boolean) : [];
+  var outBtn = document.getElementById("zoom-out");
+  var inBtn = document.getElementById("zoom-in");
+  var label = document.getElementById("zoom-reset");
+  if (!world || !canvas || boards.length < 2 || !outBtn || !inBtn || !label) return;
+
+  var dragging = false;
+  var startX = 0, startY = 0, startPanX = 0, startPanY = 0, pointerId = null;
+
+  function clamp(n, min, max) { return Math.min(max, Math.max(min, n)); }
+  function round(n) { return Math.round(n * 1000) / 1000; }
+  function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+  function apply(report) {
+    world.style.transform = "translate(" + panX + "px, " + panY + "px) scale(" + zoom + ")";
+    label.textContent = Math.round(zoom * 100) + "%";
+    outBtn.disabled = zoom <= MIN + 0.001;
+    inBtn.disabled = zoom >= MAX - 0.001;
+    if (report) {
+      window.parent.postMessage({ __rulegridProductCameraState: true, step: cameraStep }, "*");
+    }
+  }
+
+  function setZoomAt(next, clientX, clientY) {
+    cancelAnimationFrame(cameraAnimation);
+    var z = round(clamp(next, MIN, MAX));
+    if (z === zoom) { apply(); return; }
+    var rect = canvas.getBoundingClientRect();
+    var mx = clientX - rect.left;
+    var my = clientY - rect.top;
+    var wx = (mx - panX) / zoom;
+    var wy = (my - panY) / zoom;
+    zoom = z;
+    panX = mx - wx * zoom;
+    panY = my - wy * zoom;
+    apply();
+  }
+
+  function boardCamera(board, edge, scale) {
+    var width = canvas.clientWidth;
+    var height = canvas.clientHeight;
+    var topSafe = Math.max(78, height * 0.095);
+    var bottomSafe = Math.max(28, height * 0.035);
+    var x = (width - board.offsetWidth * scale) / 2 - board.offsetLeft * scale;
+    var y = edge === "bottom"
+      ? height - bottomSafe - (board.offsetTop + board.offsetHeight) * scale
+      : topSafe - board.offsetTop * scale;
+    return { zoom: scale, panX: x, panY: y };
+  }
+
+  function allScenariosCamera() {
+    var width = canvas.clientWidth;
+    var height = canvas.clientHeight;
+    var sideSafe = Math.max(22, width * 0.02);
+    var topSafe = Math.max(78, height * 0.095);
+    var bottomSafe = Math.max(24, height * 0.03);
+    var worldWidth = Math.max(world.scrollWidth, world.offsetWidth, 1);
+    var worldHeight = Math.max(world.scrollHeight, world.offsetHeight, 1);
+    var availableWidth = Math.max(1, width - sideSafe * 2);
+    var availableHeight = Math.max(1, height - topSafe - bottomSafe);
+    var scale = clamp(Math.min(availableWidth / worldWidth, availableHeight / worldHeight), MIN, 0.5);
+    return {
+      zoom: scale,
+      panX: sideSafe + (availableWidth - worldWidth * scale) / 2,
+      panY: topSafe + (availableHeight - worldHeight * scale) / 2
+    };
+  }
+
+  function cameraForStep(step) {
+    if (step === 0) return boardCamera(boards[0], "top", 0.5);
+    if (step === 1) return boardCamera(boards[0], "bottom", 0.5);
+    if (step === 2) return boardCamera(boards[1], "top", 0.5);
+    if (step === 3) return boardCamera(boards[1], "bottom", 0.5);
+    return allScenariosCamera();
+  }
+
+  function moveCamera(step, animate) {
+    cameraStep = Math.round(clamp(Number(step) || 0, 0, 4));
+    var target = cameraForStep(cameraStep);
+    cancelAnimationFrame(cameraAnimation);
+    if (!animate) {
+      zoom = target.zoom;
+      panX = target.panX;
+      panY = target.panY;
+      apply(true);
+      return;
+    }
+    var startZoom = zoom, startX = panX, startY = panY, startedAt = performance.now();
+    function frame(now) {
+      var progress = Math.min(1, (now - startedAt) / 850);
+      var amount = ease(progress);
+      zoom = startZoom + (target.zoom - startZoom) * amount;
+      panX = startX + (target.panX - startX) * amount;
+      panY = startY + (target.panY - startY) * amount;
+      apply(false);
+      if (progress < 1) cameraAnimation = requestAnimationFrame(frame);
+      else {
+        zoom = target.zoom;
+        panX = target.panX;
+        panY = target.panY;
+        apply(true);
+      }
+    }
+    cameraAnimation = requestAnimationFrame(frame);
+  }
+
+  function canvasCenter() {
+    var rect = canvas.getBoundingClientRect();
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+  }
+
+  function isInteractive(el) {
+    return !!(el && el.closest && el.closest("a, button, .chip, input, textarea, .hud"));
+  }
+
+  outBtn.addEventListener("click", function () {
+    var c = canvasCenter();
+    setZoomAt(zoom - STEP, c.x, c.y);
+  });
+  inBtn.addEventListener("click", function () {
+    var c = canvasCenter();
+    setZoomAt(zoom + STEP, c.x, c.y);
+  });
+  label.addEventListener("click", function () {
+    moveCamera(0, true);
+  });
+
+  function onPanMove(e) {
+    if (!dragging) return;
+    if (pointerId != null && e.pointerId !== pointerId) return;
+    panX = startPanX + (e.clientX - startX);
+    panY = startPanY + (e.clientY - startY);
+    apply();
+  }
+
+  function endPan() {
+    if (!dragging) return;
+    dragging = false;
+    pointerId = null;
+    canvas.classList.remove("is-panning");
+    window.removeEventListener("pointermove", onPanMove);
+    window.removeEventListener("pointerup", endPan);
+    window.removeEventListener("pointercancel", endPan);
+  }
+
+  canvas.addEventListener("pointerdown", function (e) {
+    if (e.button !== 0) return;
+    if (isInteractive(e.target)) return;
+    dragging = true;
+    pointerId = e.pointerId;
+    startX = e.clientX;
+    startY = e.clientY;
+    startPanX = panX;
+    startPanY = panY;
+    canvas.classList.add("is-panning");
+    window.addEventListener("pointermove", onPanMove);
+    window.addEventListener("pointerup", endPan);
+    window.addEventListener("pointercancel", endPan);
+    e.preventDefault();
+  });
+
+  canvas.addEventListener("selectstart", function (e) {
+    if (dragging) e.preventDefault();
+  });
+
+  canvas.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    if (e.ctrlKey || e.metaKey) {
+      setZoomAt(zoom + (e.deltaY > 0 ? -STEP : STEP), e.clientX, e.clientY);
+      return;
+    }
+    panX -= e.deltaX;
+    panY -= e.deltaY;
+    apply();
+  }, { passive: false });
+
+  window.addEventListener("keydown", function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.target && e.target.closest && e.target.closest("input, textarea, [contenteditable='true']")) return;
+    var next = ["ArrowRight", "PageDown", " ", "ArrowDown", "Enter"].indexOf(e.key) !== -1;
+    var previous = ["ArrowLeft", "PageUp", "ArrowUp", "Backspace"].indexOf(e.key) !== -1;
+    if (!next && !previous) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    window.parent.postMessage({ __rulegridDeckNav: true, delta: next ? 1 : -1 }, "*");
+  }, true);
+
+  window.addEventListener("message", function (e) {
+    if (!e.data || !e.data.__rulegridSetCameraStep) return;
+    moveCamera(e.data.step, true);
+  });
+
+  var resizeTimer = 0;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { moveCamera(cameraStep, false); }, 80);
+  });
+
+  var requestedStep = Number(new URLSearchParams(window.location.search).get("step"));
+  cameraStep = Number.isFinite(requestedStep) ? Math.round(clamp(requestedStep, 0, 4)) : 0;
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () { moveCamera(cameraStep, false); });
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { moveCamera(cameraStep, false); });
+  }
+})();
+</script>
+</body>
+</html>
