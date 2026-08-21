@@ -2298,11 +2298,22 @@ hoursLast12M ≥ 1,250</code></pre>
           <div style="border-top:2px solid var(--accent);padding-top:2.2vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.25">Public enforcement record → Direct letter → RuleGrid pilot</div>
           <div class="t-body-sm" style="color:var(--text-secondary)">Ongoing monitoring and warnings give customers a reason to stay.</div>
         </div>
-        <div role="img" aria-label="Placeholder for regulatory enforcement letter photo" style="min-height:0;border:2px dashed rgba(17,24,39,.28);background:#f2f3f5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2vh;color:var(--text-secondary)">
-          <div style="font-family:var(--mono);font-size:min(4.8vw,8vh);font-weight:500;letter-spacing:.12em">PHOTO</div>
-          <div class="t-meta">REGULATORY ENFORCEMENT LETTER</div>
+        <div style="min-height:0;background:#f2f3f5;display:flex;align-items:center;justify-content:center;padding:1.6vh 1.2vw">
+          <img src="images/regulatory-letter-qr-mockup.png" alt="Mockup outreach card: a regulatory enforcement letter with a QR code offering a free RuleGrid compliance overview and a 'Start Free' call to action" style="width:100%;height:100%;object-fit:contain;box-shadow:0 1px 3px rgba(17,24,39,.18)">
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide light" data-layout="S22" data-animate="image-hero" data-slide-id="mosey-acquisition-evidence">
+  <div class="canvas-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden">
+    <div class="chrome-min" style="padding:2.8vh 2.2vw 0"><div class="l">EVIDENCE · MARKET VALIDATION</div><div class="r">17 / 21</div></div>
+    <div style="flex:1;min-height:0;padding:1.8vh 2.2vw 8vh;display:grid;grid-template-rows:1fr auto;gap:1.4vh">
+      <div data-anim="img" style="min-height:0;overflow:hidden;border:1px solid var(--border-strong);box-shadow:0 2px 12px rgba(17,24,39,.16)">
+        <img src="images/gusto-welcomes-mosey.png" alt="Gusto Company News article headlined 'Gusto Welcomes Mosey to Fight Compliance Inflation for Small Businesses'" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block">
+      </div>
+      <div class="t-meta" style="display:flex;justify-content:space-between;color:rgba(17,24,39,.48)"><a href="https://mosey.com/blog/mosey-is-joining-gusto/" target="_blank" rel="noreferrer" style="color:inherit;text-decoration:none">GUSTO · COMPANY NEWS, 2026</a><span>SCREENSHOT · GUSTO.COM/COMPANY-NEWS</span></div>
     </div>
   </div>
 </section>
@@ -2345,7 +2356,7 @@ hoursLast12M ≥ 1,250</code></pre>
         </div>
         <div class="rg-ask-panel">
           <div class="t-meta">OUR ASK</div>
-          <div class="rg-ask-amount">$500K</div>
+          <div class="rg-ask-amount">$700K</div>
           <div class="rg-ask-copy">Pre-seed funding to validate the product, expand rule coverage, and acquire the first paying customers.</div>
           <div class="rg-ask-needs"><div>California SMB introductions</div><div>Lawyer + CPA design partners</div></div>
         </div>
@@ -2470,7 +2481,7 @@ hoursLast12M ≥ 1,250</code></pre>
     const team=document.querySelector('[data-slide-id="team"]');
     if(demo&&team) demo.before(team);
     let anchor=document.querySelector('[data-slide-id="superpower"]');
-    ['market','competition','business-model','financials','ivan-experience','ivan-gtm-letter','ivan-market-validation'].forEach(id=>{
+    ['market','competition','business-model','financials','ivan-experience','ivan-gtm-letter','mosey-acquisition-evidence','ivan-market-validation'].forEach(id=>{
       const slide=document.querySelector(`[data-slide-id="${id}"]`);
       if(anchor&&slide){anchor.after(slide);anchor=slide;}
     });
@@ -2505,8 +2516,9 @@ const SPEAKER_NOTES = [
   {id:'financials',title:'Financial Target',section:'Financials',purpose:'Present the net-income target, customer target, and implied market penetration as one scanable outcome.',talk:['The target is $15 million in net income by 2031.','That plan assumes 6,000 customers, representing 0.02 percent of the total market.'],transition:'Ivan now closes from his experience across law and business.'},
   {id:'ivan-experience',title:'Experience',section:'Founder experience',purpose:'Ground Ivan’s closing in the experience already supplied in the old deck.',talk:["I'm Ivan. I'm a lawyer and a businessman.",'Working across 20 countries, I know how slow and expensive legal advice can be.','I have seen regulation stop businesses that were not prepared.'],transition:'That experience leads to one concrete first-customer experiment.',sources:['Visual and content structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · legal-advice-slow']},
   {id:'ivan-gtm-letter',title:'First Acquisition Experiment',section:'Go-to-market',purpose:'Present one concrete outbound experiment without expanding into a broad channel strategy.',talk:['One of our first GTM experiments is straightforward.','We identify companies that have faced public regulatory enforcement, contact them directly, and invite them to try RuleGrid.','The initial assessment brings them in; ongoing monitoring and warnings give them a reason to stay.'],transition:'The next slide shows why the broader compliance-infrastructure category is already receiving serious investment and platform attention.',sources:['Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · regulatory-letter']},
+  {id:'mosey-acquisition-evidence',title:'Gusto Welcomes Mosey',section:'Market validation',purpose:'Show the primary-source announcement backing the Mosey/Gusto acquisition claim on the next slide.',talk:['This is Gusto’s own company-news post announcing the Mosey acquisition.','It is the primary source behind the $18M figure on the next slide.'],transition:'The following slide turns this into the market-validation takeaway.',sources:['https://mosey.com/blog/mosey-is-joining-gusto/']},
   {id:'ivan-market-validation',title:'Market Validation',section:'Market validation',purpose:'Use Mosey funding and acquisition as category validation without claiming it proves RuleGrid demand.',talk:['Mosey raised an $18 million Series A and was acquired by Gusto in 2026.','This does not prove RuleGrid by itself.','It shows that investors and major business platforms already recognize compliance infrastructure as a valuable category.'],transition:'The final slide turns that opportunity into a measurable 12-month execution plan and funding ask.',sources:['https://mosey.com/blog/mosey-series-a-fundraise/','https://mosey.com/blog/mosey-is-joining-gusto/','Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · mosey-proof']},
-  {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'},
+  {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $700,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'},
   {id:'appendix-feature-comparison',title:'Appendix — Feature matrix',section:'Appendix',purpose:'Provide a detailed, transposed comparison of RuleGrid and five adjacent products.',talk:['Use this appendix only if an investor asks how the product differs feature by feature.','The comparison separates standardized formation and compliance workflows from legal RAG, reasoning, hierarchy, and precedent tracking.','Asterisks identify capabilities delivered through a lawyer-supported workflow.'],transition:'Return to the relevant discussion question.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_0_61']},
   {id:'appendix-financial-model',title:'Appendix — Five-year P&L, lower bound',section:'Appendix',purpose:'Show the full year-by-year model behind the $15M 2031 net-income target, for investors who want the underlying detail.',talk:['This is the lower-bound model behind the financial target slide.','Subscriptions grow from $24,000 in Year 1 to $15,000,000 by Year 5.','R&D spend winds down after Year 3 once the core product is built; SG&A and marketing scale with the customer base.','The company turns net-income positive in Year 4 and reaches roughly $14.5M in Year 5.'],transition:'The next appendix page shows the upper-bound case for the same model.'},
   {id:'appendix-financial-model-upper',title:'Appendix — Five-year P&L, upper bound',section:'Appendix',purpose:'Show an illustrative faster-growth case built on the same cost structure as the lower bound.',talk:['This upper-bound case assumes revenue grows twice as fast as the lower bound.','Opex scales 1.5x rather than 2x, reflecting operating leverage as the team and infrastructure mature.','Under this case the company approaches breakeven a full year earlier and reaches roughly $29M in net income by Year 5.','This scenario is illustrative and unaudited, meant to bound the range around the stated target, not replace it.'],transition:'Use this only if an investor asks for the bull case behind the model.'}
