@@ -1232,13 +1232,12 @@
 .rg-source-row a{color:var(--accent);text-underline-offset:.2em}
 
 .rg-competition-layout{flex:1;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:1.2vh;min-height:0}
-.rg-map-legend{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);padding-right:.4vw}
-.rg-cost-key{display:flex;align-items:center;gap:.7vw}.rg-key-circle{display:inline-block;border:1px solid #8f8f8f;border-radius:50%;background:transparent}.rg-key-circle.sm{width:12px;height:12px}.rg-key-circle.md{width:24px;height:24px}.rg-key-circle.lg{width:42px;height:42px}
+.rg-map-legend{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:max(15px,.86vw);font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);padding-right:.4vw}
+.rg-cost-key{display:flex;align-items:center;gap:.8vw}.rg-key-circle{display:inline-block;border:1.5px solid #777;border-radius:50%;background:transparent}.rg-key-circle.sm{width:16px;height:16px}.rg-key-circle.md{width:29px;height:29px}.rg-key-circle.lg{width:46px;height:46px}
 .rg-competitive-map{position:relative;min-height:0;margin:0 1.2vw 2.8vh 3.7vw;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);background-image:linear-gradient(to right,rgba(16,16,16,.075) 1px,transparent 1px),linear-gradient(to top,rgba(16,16,16,.075) 1px,transparent 1px);background-size:25% 100%,100% 25%}
-.rg-target-zone{position:absolute;right:0;top:0;width:33%;height:36%;background:linear-gradient(135deg,rgba(0,47,167,.035),rgba(0,47,167,.105));border-top:3px solid rgba(0,47,167,.34);border-left:1px solid rgba(0,47,167,.1)}
-.rg-axis-y{position:absolute;left:-4.1vw;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:var(--mono);font-size:12px;letter-spacing:.09em;white-space:nowrap}
-.rg-axis-x{position:absolute;left:50%;bottom:-3.2vh;transform:translateX(-50%);font-family:var(--mono);font-size:12px;letter-spacing:.09em;white-space:nowrap}
-.rg-axis-end{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--text-secondary)}
+.rg-axis-y{position:absolute;left:-4.35vw;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:var(--mono);font-size:max(15px,.86vw);font-weight:750;letter-spacing:.08em;white-space:nowrap;color:var(--ink)}
+.rg-axis-x{position:absolute;left:50%;bottom:-3.35vh;transform:translateX(-50%);font-family:var(--mono);font-size:max(15px,.86vw);font-weight:750;letter-spacing:.08em;white-space:nowrap;color:var(--ink)}
+.rg-axis-end{position:absolute;font-family:var(--mono);font-size:max(13px,.74vw);font-weight:700;letter-spacing:.07em;color:var(--text-secondary)}
 .rg-axis-end.active{left:1.2vw;top:1.2vh}.rg-axis-end.passive{left:1.2vw;bottom:1.2vh}.rg-axis-end.slow{left:.4vw;bottom:-3.2vh}.rg-axis-end.fast{right:.4vw;bottom:-3.2vh}
 .rg-map-node{position:absolute;z-index:2;display:grid;grid-template-columns:auto max-content;align-items:center;gap:.8vw}
 .rg-map-node.reverse{grid-template-columns:max-content auto}
@@ -1252,7 +1251,7 @@
 .rg-node-legalzoom{left:52%;bottom:10%;--node-size:min(3.7vw,6.2vh)}
 .rg-node-chat{right:8%;bottom:4%;--node-size:min(1.15vw,1.95vh)}
 .rg-node-gusto{left:64%;top:32%;--node-size:min(4.6vw,7.8vh)}
-.rg-node-target{right:5%;top:6%;--node-size:min(3vw,5.1vh)}
+.rg-node-target{right:5%;top:7%;--node-size:min(3.2vw,5.4vh)}
 
 .rg-business-layout{flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:2.6vh;min-height:0}
 .rg-business-grid{display:grid;grid-template-columns:1fr .5fr 1fr;gap:1.7vw;align-items:stretch;min-height:0}
@@ -1937,7 +1936,7 @@
     <div style="flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1.1vh;min-height:0">
       <div data-anim="line">
         <div class="t-meta" style="color:var(--accent);font-size:max(17px,1.05vw);font-weight:800">THE STRUCTURAL BLIND SPOT</div>
-        <h2 style="font-family:var(--sans);font-weight:650;font-size:min(4.35vw,7.4vh);line-height:.96;letter-spacing:-.035em;margin-top:.7vh">WHY LLMS STILL NOT GOOD ENOUGH</h2>
+        <h2 style="font-family:var(--sans);font-weight:650;font-size:min(4.35vw,7.4vh);line-height:.96;letter-spacing:-.035em;margin-top:.7vh">Why LLMs still not good enough</h2>
       </div>
       <div data-anim="up" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25vw;margin:.25vh 1vw 0;min-height:0">
         <article class="card-fill" style="border-top:4px solid var(--accent);padding:1.9vh 1.55vw;display:grid;grid-template-rows:1fr auto;gap:1.3vh;min-width:0">
@@ -2180,10 +2179,9 @@ hoursLast12M ≥ 1,250</code></pre>
   <div class="canvas-card">
     <div class="chrome-min tight"><div class="l">COMPETITIVE POSITIONING</div><div class="r">12 / 15</div></div>
     <div class="rg-competition-layout">
-      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.25vw,7.25vh);line-height:.98;letter-spacing:-.035em">Fast, active legal monitoring — at lower cost</h2></div>
+      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.25vw,7.25vh);line-height:.98;letter-spacing:-.035em">Fast, Active Legal Monitoring — At Lower Cost</h2></div>
       <div class="rg-map-legend"><div class="rg-cost-key"><span>CIRCLE SIZE = COST</span><span class="rg-key-circle sm"></span><span class="rg-key-circle md"></span><span class="rg-key-circle lg"></span><span>LOW → HIGH</span></div><div>✓ = REVIEWABLE</div></div>
       <div class="rg-competitive-map" data-anim="duo">
-        <div class="rg-target-zone"></div>
         <div class="rg-axis-y">PASSIVE → ACTIVE</div><div class="rg-axis-x">SPEED: SLOW → FAST</div>
         <div class="rg-axis-end active">ACTIVE</div><div class="rg-axis-end passive">PASSIVE</div><div class="rg-axis-end slow">SLOW</div><div class="rg-axis-end fast">FAST</div>
 
@@ -2285,7 +2283,7 @@ const SPEAKER_NOTES = [
   {id:'constraint-guided-legal-reasoning',title:'Constraint-Guided Legal Reasoning Engine',section:'Superpower',purpose:'Show the translate-then-validate workflow with a concrete federal-versus-state leave example.',talk:['A general model proposes FMLA eligibility from tenure and hours.','RuleGrid translates the company and employee facts into explicit variables.','The SMT solver checks every condition: the federal FMLA claim fails the 50-employees-within-75-miles test.','California CFRA has a different employer threshold, so the system surfaces that path and routes the conclusion for professional review.'],transition:'The next slide summarizes the three technical capabilities that make this check repeatable.',sources:['https://www.dol.gov/agencies/whd/fact-sheets/28-fmla','https://calcivilrights.ca.gov/employment/family-care-medical-leave-guide/']},
   {id:'superpower',title:'Hybrid neuro-symbolic AI',section:'Superpower',purpose:'Summarize the three technical capabilities of the reasoning layer.',talk:['Time-aware reasoning applies the right law at the right time.','Controlling-law reasoning models which federal, state, or local rule wins.','Authentic sources use precedents and agency actions to ground enforcement-risk prioritization.'],transition:'The next four slides move from technical differentiation to market, competitive positioning, pricing, and the financial target.'},
   {id:'market',title:'Market Size - 2026',section:'Market',purpose:'Preserve the Google Slides market-size figures and TAM, SAM, and SOM structure.',talk:['The regulatory compliance management software market volume is shown as $12 billion with an 11.2 percent CAGR.','The source slide maps TAM to 36 million U.S. SMEs, SAM to 4 million California SMEs, and SOM to 500,000 California SMEs.','The speaker note identifies 4 million California SMEs as the immediate target market.'],transition:'The next slide positions RuleGrid against the alternatives customers already use.',sources:['https://advocacy.sba.gov/wp-content/uploads/2020/06/2020-Small-Business-Economic-Profile-CA.pdf','https://www.thebusinessresearchcompany.com/report/regulatory-compliance-management-software-global-market-report']},
-  {id:'competition',title:'Fast, active legal monitoring — at lower cost',section:'Competition',purpose:'Recreate the Google Slides competitor map with speed, monitoring behavior, cost, and reviewability.',talk:['Circle size represents cost, the horizontal axis represents speed, and the vertical axis moves from passive to active monitoring.','Traditional lawyers are reviewable but highest cost; general AI is fast with weak assurance; Gusto and Mosey are active with standardized scope.','RuleGrid targets the company-aware, active, fast, lower-cost, and reviewable position.','Active means continuous monitoring, whereas a lawyer monitors passively.'],transition:'The next slide shows the two-tier commercial model behind that position.'},
+  {id:'competition',title:'Fast, Active Legal Monitoring — At Lower Cost',section:'Competition',purpose:'Recreate the Google Slides competitor map with speed, monitoring behavior, cost, and reviewability.',talk:['Circle size represents cost, the horizontal axis represents speed, and the vertical axis moves from passive to active monitoring.','Traditional lawyers are reviewable but highest cost; general AI is fast with weak assurance; Gusto and Mosey are active with standardized scope.','RuleGrid targets the company-aware, active, fast, lower-cost, and reviewable position.','Active means continuous monitoring, whereas a lawyer monitors passively.'],transition:'The next slide shows the two-tier commercial model behind that position.'},
   {id:'business-model',title:'Business model',section:'Business model',purpose:'Present the two complementary revenue streams and the Mosey benchmark.',talk:['The subscription begins with a freemium entry point, then moves to $200 per month.','Mosey provides a competitor benchmark at $399 per month.','The second revenue stream is a lawyer and CPA marketplace at $500 per month.'],transition:'The next slide states the 2031 financial target supported by this model.'},
   {id:'financials',title:'Financial Target',section:'Financials',purpose:'Present the net-income target, customer target, and implied market penetration as one scanable outcome.',talk:['The target is $15 million in net income by 2031.','That plan assumes 6,000 customers, representing 0.02 percent of the total market.'],transition:'The final slide converts the vision into a 12-month execution plan and a concrete ask.'},
   {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'}
