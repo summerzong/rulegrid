@@ -1311,6 +1311,21 @@
 .rg-appendix-mark.no{color:#d34843}
 .rg-appendix-mark sup{margin-left:.08em;font-size:.52em;color:var(--accent);vertical-align:top}
 .rg-appendix-foot{display:flex;justify-content:space-between;align-items:center;gap:2vw;color:rgba(17,24,39,.48)}
+
+/* Appendix · five-year financial model */
+.rg-fin-table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed;font-family:var(--sans)}
+.rg-fin-table th,.rg-fin-table td{border-bottom:1px solid rgba(17,24,39,.12);padding:.62vh .9vw}
+.rg-fin-table thead th{height:5.4vh;font-size:min(.92vw,1.55vh);font-weight:780;line-height:1.05;color:var(--ink);text-align:right;background:#f3f5f7;letter-spacing:.03em}
+.rg-fin-table thead th:first-child{width:22%;padding-left:1.05vw;text-align:left;color:var(--accent)}
+.rg-fin-table tbody th{padding-left:1.05vw;font-size:min(1.02vw,1.72vh);font-weight:600;line-height:1.05;text-align:left;color:var(--ink)}
+.rg-fin-table tbody td{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:min(1.1vw,1.86vh);font-weight:600;line-height:1;color:var(--ink)}
+.rg-fin-table tbody tr:nth-child(odd){background:rgba(0,47,167,.035)}
+.rg-fin-table tbody td.zero{color:rgba(17,24,39,.25);font-weight:400}
+.rg-fin-table tr.rg-fin-section th{padding-top:1.5vh;font-size:min(.82vw,1.38vh);font-weight:780;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid rgba(0,47,167,.25);background:transparent}
+.rg-fin-table tr.rg-fin-section td{background:transparent;border-bottom:1px solid rgba(0,47,167,.25)}
+.rg-fin-table tr.rg-fin-sub th,.rg-fin-table tr.rg-fin-sub td{font-weight:800;border-top:1px solid rgba(17,24,39,.22);background:#eef1f6}
+.rg-fin-table tr.rg-fin-net th,.rg-fin-table tr.rg-fin-net td{font-size:min(1.28vw,2.16vh);font-weight:800;color:#fff;background:var(--accent);border-top:2px solid var(--accent);border-bottom:2px solid var(--accent)}
+.rg-fin-table tr.rg-fin-net td.neg{color:#ffd2cc}
 </style>
 </head>
 <body class="canvas-mode">
@@ -2378,6 +2393,40 @@ hoursLast12M ≥ 1,250</code></pre>
   </div>
 </section>
 
+<section class="slide light" data-layout="S20" data-slide-id="appendix-financial-model">
+  <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
+    <div class="chrome-min"><div class="l">APPENDIX · FINANCIAL MODEL</div><div class="r">20 / 20</div></div>
+    <div class="rg-appendix-layout">
+      <div class="rg-appendix-head">
+        <h2>Appendix — Five-year P&amp;L</h2>
+        <p>Lower-bound scenario reaching the 2031 net-income target.</p>
+      </div>
+      <div class="rg-appendix-table-wrap">
+        <table class="rg-fin-table" aria-label="RuleGrid five-year financial projection, lower-bound scenario">
+          <thead>
+            <tr><th scope="col">Line item</th><th scope="col">Year 1</th><th scope="col">Year 2</th><th scope="col">Year 3</th><th scope="col">Year 4</th><th scope="col">Year 5</th></tr>
+          </thead>
+          <tbody>
+            <tr class="rg-fin-section"><th scope="row" colspan="6">Sales</th></tr>
+            <tr><th scope="row">Subscriptions</th><td>$24,000</td><td>$120,000</td><td>$600,000</td><td>$3,000,000</td><td>$15,000,000</td></tr>
+            <tr><th scope="row">Advertisements</th><td class="zero">·</td><td class="zero">·</td><td class="zero">·</td><td class="zero">·</td><td class="zero">·</td></tr>
+            <tr class="rg-fin-sub"><th scope="row">Total sales</th><td>$24,000</td><td>$120,000</td><td>$600,000</td><td>$3,000,000</td><td>$15,000,000</td></tr>
+            <tr><th scope="row">COGS</th><td>$1,000</td><td>$1,200</td><td>$1,500</td><td>$1,700</td><td>$2,000</td></tr>
+            <tr class="rg-fin-sub"><th scope="row">Gross profit</th><td>$23,000</td><td>$118,800</td><td>$598,500</td><td>$2,998,300</td><td>$14,998,000</td></tr>
+            <tr class="rg-fin-section"><th scope="row" colspan="6">Opex</th></tr>
+            <tr><th scope="row">SG&amp;A</th><td>$200,000</td><td>$200,000</td><td>$200,000</td><td>$300,000</td><td>$300,000</td></tr>
+            <tr><th scope="row">R&amp;D</th><td>$300,000</td><td>$300,000</td><td>$500,000</td><td class="zero">·</td><td class="zero">·</td></tr>
+            <tr><th scope="row">Marketing</th><td>$100,000</td><td>$150,000</td><td>$150,000</td><td>$200,000</td><td>$200,000</td></tr>
+            <tr class="rg-fin-sub"><th scope="row">Total opex</th><td>$600,000</td><td>$650,000</td><td>$850,000</td><td>$500,000</td><td>$500,000</td></tr>
+            <tr class="rg-fin-net"><th scope="row">Net income</th><td class="neg">($577,000)</td><td class="neg">($531,200)</td><td class="neg">($251,500)</td><td>$2,498,300</td><td>$14,498,000</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rg-appendix-foot t-meta"><span>LOWER-BOUND SCENARIO · ILLUSTRATIVE, UNAUDITED</span><span>MODEL V1</span></div>
+    </div>
+  </div>
+</section>
+
 </div>
 
 <script>
@@ -2424,7 +2473,8 @@ const SPEAKER_NOTES = [
   {id:'ivan-gtm-letter',title:'First Acquisition Experiment',section:'Go-to-market',purpose:'Present one concrete outbound experiment without expanding into a broad channel strategy.',talk:['One of our first GTM experiments is straightforward.','We identify companies that have faced public regulatory enforcement, contact them directly, and invite them to try RuleGrid.','The initial assessment brings them in; ongoing monitoring and warnings give them a reason to stay.'],transition:'The next slide shows why the broader compliance-infrastructure category is already receiving serious investment and platform attention.',sources:['Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · regulatory-letter']},
   {id:'ivan-market-validation',title:'Market Validation',section:'Market validation',purpose:'Use Mosey funding and acquisition as category validation without claiming it proves RuleGrid demand.',talk:['Mosey raised an $18 million Series A and was acquired by Gusto in 2026.','This does not prove RuleGrid by itself.','It shows that investors and major business platforms already recognize compliance infrastructure as a valuable category.'],transition:'The final slide turns that opportunity into a measurable 12-month execution plan and funding ask.',sources:['https://mosey.com/blog/mosey-series-a-fundraise/','https://mosey.com/blog/mosey-is-joining-gusto/','Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · mosey-proof']},
   {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'},
-  {id:'appendix-feature-comparison',title:'Appendix — Feature matrix',section:'Appendix',purpose:'Provide a detailed, transposed comparison of RuleGrid and five adjacent products.',talk:['Use this appendix only if an investor asks how the product differs feature by feature.','The comparison separates standardized formation and compliance workflows from legal RAG, reasoning, hierarchy, and precedent tracking.','Asterisks identify capabilities delivered through a lawyer-supported workflow.'],transition:'Return to the relevant discussion question.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_0_61']}
+  {id:'appendix-feature-comparison',title:'Appendix — Feature matrix',section:'Appendix',purpose:'Provide a detailed, transposed comparison of RuleGrid and five adjacent products.',talk:['Use this appendix only if an investor asks how the product differs feature by feature.','The comparison separates standardized formation and compliance workflows from legal RAG, reasoning, hierarchy, and precedent tracking.','Asterisks identify capabilities delivered through a lawyer-supported workflow.'],transition:'Return to the relevant discussion question.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_0_61']},
+  {id:'appendix-financial-model',title:'Appendix — Five-year P&L',section:'Appendix',purpose:'Show the full year-by-year model behind the $15M 2031 net-income target, for investors who want the underlying detail.',talk:['This is the lower-bound model behind the financial target slide.','Subscriptions grow from $24,000 in Year 1 to $15,000,000 by Year 5.','R&D spend winds down after Year 3 once the core product is built; SG&A and marketing scale with the customer base.','The company turns net-income positive in Year 4 and reaches roughly $14.5M in Year 5.'],transition:'Use this only if an investor asks to see the underlying numbers.'}
 ];
 window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 </script>
