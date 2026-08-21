@@ -1291,6 +1291,25 @@
 .rg-ask-copy{font-family:var(--sans);font-size:min(1.65vw,2.8vh);font-weight:520;line-height:1.25;color:var(--text-secondary)}
 .rg-ask-needs{display:grid;gap:1.1vh;margin-top:3vh;padding-top:2vh;border-top:2px solid var(--accent);font-family:var(--sans);font-size:min(1.35vw,2.3vh);font-weight:620;line-height:1.15}
 .rg-ask-needs div:before{content:"+";color:var(--accent);font-weight:800;margin-right:.65vw}
+
+/* Appendix · feature-comparison matrix */
+.rg-appendix-layout{flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1.6vh;padding:0 1.9vw 1.2vh;min-height:0}
+.rg-appendix-head{display:flex;justify-content:space-between;align-items:end;gap:3vw}
+.rg-appendix-head h2{flex:1;margin:0;font-family:var(--sans);font-size:min(3.9vw,6.6vh);font-weight:360;line-height:.96;letter-spacing:-.042em;white-space:nowrap}
+.rg-appendix-head p{margin:0 0 .35vh;max-width:39%;font-family:var(--sans);font-size:min(1.15vw,1.95vh);font-weight:500;line-height:1.25;color:var(--text-secondary)}
+.rg-appendix-table-wrap{min-height:0;border-top:4px solid var(--accent);background:#fff}
+.rg-appendix-table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed;font-family:var(--sans)}
+.rg-appendix-table th,.rg-appendix-table td{border-bottom:1px solid rgba(17,24,39,.12);padding:.55vh .6vw}
+.rg-appendix-table thead th{height:5.8vh;font-size:min(.92vw,1.55vh);font-weight:780;line-height:1.05;color:var(--ink);text-align:center;background:#f3f5f7}
+.rg-appendix-table thead th:first-child{width:25%;padding-left:1.05vw;text-align:left;color:var(--accent)}
+.rg-appendix-table tbody th{padding-left:1.05vw;font-size:min(1.05vw,1.78vh);font-weight:650;line-height:1.05;text-align:left;color:var(--ink)}
+.rg-appendix-table tbody td{text-align:center;font-size:min(1.3vw,2.2vh);font-weight:800;line-height:1}
+.rg-appendix-table tbody tr:nth-child(odd){background:rgba(0,47,167,.035)}
+.rg-appendix-table .rulegrid-col{background:rgba(0,47,167,.09);box-shadow:inset 1px 0 rgba(0,47,167,.18),inset -1px 0 rgba(0,47,167,.18)}
+.rg-appendix-mark.yes{color:#16865f}
+.rg-appendix-mark.no{color:#d34843}
+.rg-appendix-mark sup{margin-left:.08em;font-size:.52em;color:var(--accent);vertical-align:top}
+.rg-appendix-foot{display:flex;justify-content:space-between;align-items:center;gap:2vw;color:rgba(17,24,39,.48)}
 </style>
 </head>
 <body class="canvas-mode">
@@ -1306,7 +1325,7 @@
     window.__lowPowerMode = stored === '1' || (stored === null && reduced);
     function updateHint(){
       const label = document.querySelector('.ppt-low-power-label');
-      if(label) label.textContent = window.__lowPowerMode ? '动态' : '静态';
+      if(label) label.textContent = window.__lowPowerMode ? 'MOTION' : 'STATIC';
     }
     window.__setLowPowerMode = function(on, opts={}){
       window.__lowPowerMode = !!on;
@@ -1325,11 +1344,12 @@
 </script>
 
 <canvas id="bg-grid" class="bg"></canvas>
-<div id="hint" role="toolbar" aria-label="快捷控制">
-  <span>← → 翻页</span><span class="ppt-sep">·</span>
-  <button id="ppt-low-power-btn" type="button"><span class="ppt-key">B</span><span class="ppt-low-power-label">静态</span></button><span class="ppt-sep">·</span>
-  <button id="ppt-overview-btn" type="button"><span class="ppt-key">ESC</span>总览</button><span class="ppt-sep">·</span>
-  <button id="ppt-presenter-btn" type="button"><span class="ppt-key">P</span>演讲模式</button>
+<div id="hint" role="toolbar" aria-label="Presentation controls">
+  <span>← → SLIDES</span><span class="ppt-sep">·</span>
+  <button id="ppt-low-power-btn" type="button"><span class="ppt-key">B</span><span class="ppt-low-power-label">STATIC</span></button><span class="ppt-sep">·</span>
+  <button id="ppt-overview-btn" type="button"><span class="ppt-key">ESC</span>OVERVIEW</button><span class="ppt-sep">·</span>
+  <button id="ppt-presenter-btn" type="button"><span class="ppt-key">P</span>PRESENTER</button><span class="ppt-sep">·</span>
+  <button id="ppt-fullscreen-btn" type="button" aria-label="Enter fullscreen" title="Enter fullscreen (F)"><span class="ppt-key">F</span><span class="ppt-fullscreen-label">FULLSCREEN</span></button>
 </div>
 
 <div id="deck-legacy" style="display:none" aria-hidden="true">
@@ -1574,11 +1594,11 @@
 <section class="slide accent" data-layout="S01" data-animate="hero" data-slide-id="cover">
   <div class="canvas-card">
     <canvas class="ascii-bg" aria-hidden="true"></canvas>
-    <div class="chrome-min"><div class="l">BMOE BOOTCAMP</div><div class="r">01 / 15</div></div>
+    <div class="chrome-min"><div class="l">BMOE BOOTCAMP</div><div class="r">01 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-rows:1fr auto;gap:2.6vh">
       <div data-anim="title" style="align-self:start;display:grid;justify-items:start;gap:3vh;text-align:left">
         <h1 style="margin:0;transform:translateX(-.38vw);font-family:var(--sans);font-weight:200;font-size:min(12.4vw,21vh);line-height:.9;letter-spacing:-.05em;color:#fff">Rule<span style="font-style:italic;font-weight:300">Grid</span></h1>
-        <div class="lead" style="margin:0;max-width:72%;font-family:var(--sans);font-size:min(2.55vw,4.3vh);font-weight:650;line-height:1.08;letter-spacing:-.018em;color:#fff;text-align:left">Lawyers kill your business, we're here to rescue you.</div>
+        <div class="lead" style="margin:0;max-width:82%;font-family:var(--sans);font-size:min(2.55vw,4.3vh);font-weight:650;line-height:1.08;letter-spacing:-.018em;color:#fff;text-align:left">Legal Rules Kill Your Business. We’re Here to Rescue You.</div>
       </div>
       <div data-anim="bottom" style="border-top:1px solid rgba(255,255,255,.24);padding-top:2vh">
         <div style="display:flex;justify-content:space-between;align-items:end;gap:2vw"><div class="t-meta" style="color:rgba(255,255,255,.62);max-width:78%;font-size:clamp(9px,.72vw,12px);line-height:1.25">IVAN SASIN · XIA ZONG · AUSTIN SZUMINSKY · MADHUKESHWARGOUDA PATIL · RAMYA RACHARLA</div><div class="t-meta" style="color:rgba(255,255,255,.62);white-space:nowrap">AUG 2026</div></div>
@@ -1589,7 +1609,7 @@
 
 <section class="slide light" data-layout="S18" data-slide-id="legal-complexity-blocks-growth">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l"></div><div class="r">02 / 15</div></div>
+    <div class="chrome-min"><div class="l"></div><div class="r">02 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-rows:auto 1fr auto;gap:2.4vh;padding:0 2vw 2vh;min-height:0">
       <div style="display:grid;grid-template-columns:auto 1fr;gap:2.4vw;align-items:start;border-top:3px solid var(--accent);padding-top:2.8vh">
         <div style="font-family:var(--sans);font-size:min(7.2vw,12vh);font-weight:700;line-height:.84;letter-spacing:-.055em;color:var(--accent);white-space:nowrap">1 in 3</div>
@@ -1601,7 +1621,10 @@
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr auto;gap:3vw;align-items:center;border-top:1px solid var(--border-strong);padding:1.7vh 2.5vw 0 18.2vw">
-        <div style="font-family:var(--sans);font-size:min(2.35vw,3.95vh);font-weight:520;line-height:1.22;color:var(--text-secondary)">9 out of 10 businesses don’t have anyone watching their regulatory landscape</div>
+        <div style="display:grid;gap:1.05vh">
+          <div style="font-family:var(--sans);font-size:min(2.35vw,3.95vh);font-weight:520;line-height:1.22;color:var(--text-secondary)">9 out of 10 businesses don’t have anyone watching their regulatory landscape</div>
+          <div class="t-meta" style="font-size:clamp(8px,.58vw,10px);line-height:1.25;color:rgba(17,24,39,.48)"><a href="https://www.legalzoom.com/press-releases/legalzoom-compliance-survey-2026" target="_blank" rel="noreferrer" style="color:inherit;text-decoration:none">LEGALZOOM · SMALL BUSINESS COMPLIANCE SURVEY, 2026 (1 IN 3)</a> · <a href="https://www.acc.com/sites/default/files/2020-02/The%202019%20General%20Counsel%20Landscape%20-%20LawGeex.pdf" target="_blank" rel="noreferrer" style="color:inherit;text-decoration:none">ACC / LAWGEEX · GENERAL COUNSEL LANDSCAPE, 2019 (SMB GC COVERAGE PROXY)</a></div>
+        </div>
         <div role="img" aria-label="Pie chart showing nine out of ten" style="width:min(7.2vw,11.8vh);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--accent) 0 90%,#dfe2e7 90% 100%);box-shadow:inset 0 0 0 1px rgba(17,24,39,.12);display:grid;place-items:center;transform:rotate(-90deg)">
           <div aria-hidden="true" style="width:36%;aspect-ratio:1;border-radius:50%;background:var(--paper)"></div>
         </div>
@@ -1612,9 +1635,9 @@
 
 <section class="slide grey" data-layout="S18" data-slide-id="broken-legal-workflow">
   <div class="canvas-card" style="background:#eceef1;color:var(--ink)">
-    <div class="chrome-min"><div class="l">PROBLEM · EXISTING ALTERNATIVES</div><div class="r">03 / 15</div></div>
+    <div class="chrome-min"><div class="l">PROBLEM · EXISTING ALTERNATIVES</div><div class="r">03 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-rows:auto 1fr;gap:2.8vh;padding:0 2vw 2vh;min-height:0">
-      <h2 style="max-width:94%;font-family:var(--sans);font-size:min(4.25vw,7.1vh);font-weight:560;line-height:1.01;letter-spacing:-.04em">Growing companies are stuck between <span style="color:var(--accent);font-weight:720">two incomplete workflows.</span></h2>
+      <h2 style="max-width:94%;font-family:var(--sans);font-size:min(4.25vw,7.1vh);font-weight:560;line-height:1.01;letter-spacing:-.04em">Run law <span style="color:var(--accent);font-weight:720">in time.</span></h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.4vw;align-items:stretch;min-height:0">
         <div style="display:grid;grid-template-rows:28vh auto;gap:1.7vh;border-top:4px solid var(--accent);padding-top:1.4vh;min-height:0">
           <div role="img" aria-label="Logos of Claude, Gemini, DeepSeek, Llama, and Grok" style="width:100%;height:28vh;background:#f8f9fb;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:2.2vh 2.1vw;padding:2.2vh 1.2vw;border:1px solid rgba(17,24,39,.08)">
@@ -1624,7 +1647,7 @@
             <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/meta.svg" alt="Meta logo representing Llama" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">LLAMA</span></div>
             <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/xai.svg" alt="X logo representing Grok" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">GROK</span></div>
           </div>
-          <div><div class="t-meta" style="color:var(--accent);font-weight:850">GENERAL AI</div><div style="margin-top:.9vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.13">Unverified sources. Outdated law. Wrong jurisdiction.</div></div>
+          <div><div class="t-meta" style="color:var(--accent);font-weight:850">GENERAL AI</div><div style="margin-top:.9vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.13">Unverified sources. Wrong law in time. Wrong jurisdiction.</div></div>
         </div>
         <div style="display:grid;grid-template-rows:28vh auto;gap:1.7vh;border-top:4px solid var(--ink);padding-top:1.4vh;min-height:0">
           <img src="images/problem-legal-documents.png" alt="Large stacks of legal files and case documents" style="width:100%;height:28vh;display:block;object-fit:cover;object-position:center 57%;filter:saturate(.76) contrast(1.03)">
@@ -1637,17 +1660,19 @@
 
 <section class="slide accent" data-layout="S13" data-slide-id="product-positioning">
   <div class="canvas-card" style="background:var(--accent);color:#fff">
-    <div class="chrome-min"><div class="l">PRODUCT POSITIONING</div><div class="r">04 / 15</div></div>
-    <div style="flex:1;display:grid;align-content:center;gap:3.2vh;padding:0 2vw;max-width:96%">
-      <h2 style="font-family:var(--sans);font-size:min(5.25vw,8.8vh);font-weight:430;line-height:1.01;letter-spacing:-.045em"><span style="font-weight:760">RuleGrid</span> is an enterprise growth tool for legal risk assessment planning your path forward</h2>
-      <div style="max-width:86%;border-top:1px solid rgba(255,255,255,.42);padding-top:2.2vh;font-family:var(--sans);font-size:min(2.2vw,3.7vh);font-weight:570;line-height:1.22;color:rgba(255,255,255,.92)">RuleGrid is unlimited access to <span style="font-size:1.28em;font-weight:760">80%</span> of what a lawyer can do at almost none of the cost</div>
+    <div class="chrome-min"><div class="l">PRODUCT POSITIONING</div><div class="r">04 / 16</div></div>
+    <div style="flex:1;display:grid;align-content:start;gap:2.5vh;padding:12vh 2vw 0;max-width:96%">
+      <div style="max-width:90%;font-family:var(--sans);font-size:min(2vw,3.35vh);font-weight:650;line-height:1.05;letter-spacing:-.02em;color:#fff">Built for small and midsize businesses without in-house legal teams.</div>
+      <h2 style="max-width:93%;font-family:var(--sans);font-size:min(4.9vw,8.2vh);font-weight:430;line-height:.99;letter-spacing:-.045em"><span style="font-weight:760">RuleGrid</span> is an enterprise growth tool for legal risk assessment planning your path forward.</h2>
+      <div style="max-width:82%;font-family:var(--sans);font-size:min(1.75vw,2.95vh);font-weight:500;line-height:1.28;color:rgba(255,255,255,.76)">It continuously matches your Company Profile against changing laws, identifies what applies, and tells you what to do next.</div>
+      <div style="max-width:90%;border-top:1px solid rgba(255,255,255,.42);padding-top:2.2vh;font-family:var(--sans);font-size:min(2.15vw,3.6vh);font-weight:570;line-height:1.18;color:rgba(255,255,255,.92)">Unlimited access to <span style="font-size:1.55em;font-weight:800">80%</span> of what a lawyer can do — at almost none of the cost.</div>
     </div>
   </div>
 </section>
 
 <section class="slide light" data-layout="S13" data-slide-id="path-forward-question">
   <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
-    <div class="chrome-min"><div class="l"></div><div class="r">05 / 15</div></div>
+    <div class="chrome-min"><div class="l"></div><div class="r">05 / 16</div></div>
     <div style="flex:1;display:grid;align-content:center;padding:0 2.2vw;max-width:94%">
       <h2 style="font-family:var(--sans);font-size:min(5.65vw,9.5vh);font-weight:420;line-height:1.02;letter-spacing:-.045em">How is it we can help you find the path forward <span style="color:var(--accent);font-weight:650">in the way that no one else can?</span></h2>
     </div>
@@ -1932,11 +1957,11 @@
 
 <section class="slide light" data-layout="S18" data-animate="why-now" data-slide-id="llm-structural-blind-spot">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">EVIDENCE · LLM LIMITS</div><div class="r">08 / 15</div></div>
+    <div class="chrome-min"><div class="l">EVIDENCE · LLM LIMITS</div><div class="r">08 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:1.1vh;min-height:0">
       <div data-anim="line">
         <div class="t-meta" style="color:var(--accent);font-size:max(17px,1.05vw);font-weight:800">THE STRUCTURAL BLIND SPOT</div>
-        <h2 style="font-family:var(--sans);font-weight:650;font-size:min(4.35vw,7.4vh);line-height:.96;letter-spacing:-.035em;margin-top:.7vh">Why LLMs still not good enough</h2>
+        <h2 style="font-family:var(--sans);font-weight:650;font-size:min(4.35vw,7.4vh);line-height:.96;letter-spacing:-.035em;margin-top:.7vh">Why LLMs are still not good enough</h2>
       </div>
       <div data-anim="up" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25vw;margin:.25vh 1vw 0;min-height:0">
         <article class="card-fill" style="border-top:4px solid var(--accent);padding:1.9vh 1.55vw;display:grid;grid-template-rows:1fr auto;gap:1.3vh;min-width:0">
@@ -1990,7 +2015,7 @@
 
 <section class="slide light" data-layout="S11" data-animate="timeline-walk" data-slide-id="constraint-guided-legal-reasoning">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">SUPERPOWER · REASONING LAYER</div><div class="r">09 / 15</div></div>
+    <div class="chrome-min"><div class="l">SUPERPOWER · REASONING LAYER</div><div class="r">09 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-rows:auto 1fr auto;gap:1.6vh;min-height:0">
       <div data-anim="head">
         <h2 style="font-family:var(--sans);font-weight:700;font-size:min(4.45vw,7.6vh);line-height:.96;letter-spacing:-.035em">Constraint-Guided Legal Reasoning Engine</h2>
@@ -2076,7 +2101,7 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide light" data-layout="S13" data-animate="three-forces" data-slide-id="superpower">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">SUPERPOWER · TRUST LAYER</div><div class="r">10 / 15</div></div>
+    <div class="chrome-min"><div class="l">SUPERPOWER · TRUST LAYER</div><div class="r">10 / 16</div></div>
     <div style="flex:1;display:grid;grid-template-columns:4.2fr 11.8fr;gap:1.6vw;min-height:0">
       <div data-anim="left" style="padding:3vh 1.2vw 3vh 0;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden">
         <h2 style="font-family:var(--sans);font-weight:250;font-size:min(4.25vw,7.3vh);line-height:1;letter-spacing:-.035em">Hybrid neuro-symbolic AI</h2>
@@ -2093,7 +2118,7 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide light" data-layout="S08" data-animate="duo-mirror" data-slide-id="market">
   <div class="canvas-card">
-    <div class="chrome-min tight"><div class="l">MARKET SIZE · 2026</div><div class="r">11 / 15</div></div>
+    <div class="chrome-min tight"><div class="l">MARKET SIZE · 2026</div><div class="r">11 / 16</div></div>
     <div class="rg-market-layout">
       <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.9vw,8.3vh);line-height:.98;letter-spacing:-.04em">Market Size — 2026</h2></div>
       <div class="rg-market-body" data-anim="duo">
@@ -2136,7 +2161,7 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide light" data-layout="S05" data-animate="stack-build" data-slide-id="business-model">
   <div class="canvas-card">
-    <div class="chrome-min"><div class="l">BUSINESS MODEL · REVENUE</div><div class="r">13 / 15</div></div>
+    <div class="chrome-min"><div class="l">BUSINESS MODEL · REVENUE</div><div class="r">13 / 16</div></div>
     <div class="rg-business-layout">
       <div data-anim="head"><div class="t-meta" style="color:var(--accent)">TWO COMPLEMENTARY REVENUE STREAMS</div><h2 style="font-family:var(--sans);font-weight:280;font-size:min(5.1vw,8.7vh);line-height:.98;letter-spacing:-.035em;color:var(--ink)">Business model</h2></div>
       <div data-anim="stack" class="rg-business-grid">
@@ -2177,7 +2202,7 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide light" data-layout="S08" data-animate="duo-mirror" data-slide-id="competition">
   <div class="canvas-card">
-    <div class="chrome-min tight"><div class="l">COMPETITIVE POSITIONING</div><div class="r">12 / 15</div></div>
+    <div class="chrome-min tight"><div class="l">COMPETITIVE POSITIONING</div><div class="r">12 / 16</div></div>
     <div class="rg-competition-layout">
       <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.25vw,7.25vh);line-height:.98;letter-spacing:-.035em">Fast, Active Legal Monitoring — At Lower Cost</h2></div>
       <div class="rg-map-legend"><div class="rg-cost-key"><span>CIRCLE SIZE = COST</span><span class="rg-key-circle sm"></span><span class="rg-key-circle md"></span><span class="rg-key-circle lg"></span><span>LOW → HIGH</span></div><div>✓ = REVIEWABLE</div></div>
@@ -2212,7 +2237,7 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide grey" data-layout="S08" data-animate="duo-mirror" data-slide-id="financials">
   <div class="canvas-card">
-    <div class="chrome-min tight"><div class="l">FINANCIAL PROJECTIONS</div><div class="r">14 / 15</div></div>
+    <div class="chrome-min tight"><div class="l">FINANCIAL PROJECTIONS</div><div class="r">14 / 16</div></div>
     <div class="rg-financial-layout">
       <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.8vw,8.15vh);line-height:.98;letter-spacing:-.04em">Financial Target</h2></div>
       <div class="rg-financial-body" data-anim="duo">
@@ -2227,9 +2252,71 @@ hoursLast12M ≥ 1,250</code></pre>
   </div>
 </section>
 
+<section class="slide light" data-layout="S13" data-animate="three-forces" data-slide-id="ivan-experience">
+  <div class="canvas-card" style="background:#f2f3f5;color:var(--ink)">
+    <div class="chrome-min"><div class="l">FOUNDER EXPERIENCE</div><div class="r">15 / 19</div></div>
+    <div style="flex:1;display:grid;grid-template-rows:auto 1fr;gap:4vh;min-height:0;padding:0 2vw 2vh">
+      <div data-anim="up">
+        <div class="t-meta" style="color:var(--accent)">IVAN SASIN · LAWYER + BUSINESSMAN · 20 COUNTRIES</div>
+        <h2 style="font-family:var(--sans);font-weight:260;font-size:min(5.25vw,8.9vh);line-height:.98;letter-spacing:-.04em;margin-top:1vh">Experience</h2>
+      </div>
+      <div data-anim="up" style="display:grid;align-content:center;gap:2.8vh;border-top:3px solid var(--accent);min-height:0">
+        <div style="font-family:var(--sans);font-size:min(4.35vw,7.25vh);font-weight:620;line-height:1.02;letter-spacing:-.04em">Legal advice is slow and expensive.</div>
+        <div style="font-family:var(--sans);font-size:min(4.35vw,7.25vh);font-weight:620;line-height:1.02;letter-spacing:-.04em;color:var(--accent)">Regulation kills unaware businesses.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide light" data-layout="S11" data-animate="timeline-walk" data-slide-id="ivan-gtm-letter">
+  <div class="canvas-card">
+    <div class="chrome-min"><div class="l">GO-TO-MARKET · FIRST EXPERIMENT</div><div class="r">16 / 19</div></div>
+    <div style="flex:1;display:grid;grid-template-rows:auto 1fr;gap:3vh;min-height:0">
+      <div data-anim="head">
+        <div class="t-meta" style="color:var(--accent)">FIRST CUSTOMER ACQUISITION TEST</div>
+        <h2 style="font-family:var(--sans);font-weight:260;font-size:min(5.25vw,8.9vh);line-height:.98;letter-spacing:-.04em;margin-top:1vh">First Acquisition Experiment</h2>
+      </div>
+      <div data-anim="walk" style="display:grid;grid-template-columns:1.08fr .92fr;gap:4vw;align-items:stretch;min-height:0">
+        <div style="display:flex;flex-direction:column;justify-content:center;gap:3.2vh;padding:0 1vw">
+          <div style="font-family:var(--sans);font-size:min(3.3vw,5.55vh);font-weight:610;line-height:1.08;letter-spacing:-.03em">Reach businesses immediately after regulatory pain becomes real.</div>
+          <div style="border-top:2px solid var(--accent);padding-top:2.2vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.25">Public enforcement record → Direct letter → RuleGrid pilot</div>
+          <div class="t-body-sm" style="color:var(--text-secondary)">Ongoing monitoring and warnings give customers a reason to stay.</div>
+        </div>
+        <div role="img" aria-label="Placeholder for regulatory enforcement letter photo" style="min-height:0;border:2px dashed rgba(17,24,39,.28);background:#f2f3f5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2vh;color:var(--text-secondary)">
+          <div style="font-family:var(--mono);font-size:min(4.8vw,8vh);font-weight:500;letter-spacing:.12em">PHOTO</div>
+          <div class="t-meta">REGULATORY ENFORCEMENT LETTER</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide light" data-layout="S13" data-animate="three-forces" data-slide-id="ivan-market-validation">
+  <div class="canvas-card" style="background:#f2f3f5;color:var(--ink)">
+    <div class="chrome-min"><div class="l">MARKET VALIDATION</div><div class="r">17 / 19</div></div>
+    <div style="flex:1;display:grid;grid-template-rows:auto 1fr auto;gap:3vh;min-height:0;padding:0 2vw 2vh">
+      <div data-anim="up">
+        <div class="t-meta" style="color:var(--accent)">COMPLIANCE INFRASTRUCTURE</div>
+        <h2 style="font-family:var(--sans);font-weight:260;font-size:min(5.25vw,8.9vh);line-height:.98;letter-spacing:-.04em;margin-top:1vh">Market Validation</h2>
+      </div>
+      <div data-anim="up" style="display:grid;grid-template-columns:.78fr 1.22fr;gap:4vw;align-items:center;border-top:3px solid var(--accent);min-height:0">
+        <div>
+          <div style="font-family:var(--sans);font-size:min(9vw,15vh);font-weight:720;line-height:.82;letter-spacing:-.06em;color:var(--accent)">$18M</div>
+          <div class="t-meta" style="margin-top:2vh">MOSEY · SERIES A</div>
+        </div>
+        <div style="display:grid;gap:2vh">
+          <div style="font-family:var(--sans);font-size:min(3.85vw,6.45vh);font-weight:650;line-height:1.03;letter-spacing:-.035em">Acquired by Gusto in 2026</div>
+          <div style="font-family:var(--sans);font-size:min(2.05vw,3.45vh);font-weight:520;line-height:1.25;color:var(--text-secondary)">Investors and major business platforms already recognize compliance infrastructure as a valuable category.</div>
+        </div>
+      </div>
+      <div data-anim="up" class="t-meta" style="border-top:1px solid var(--border-strong);padding-top:1.4vh">CATEGORY VALIDATION · NOT YET PROOF OF RULEGRID DEMAND</div>
+    </div>
+  </div>
+</section>
+
 <section class="slide light" data-layout="S08" data-animate="duo-mirror" data-slide-id="ask">
   <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
-    <div class="chrome-min"><div class="l">NEXT STEPS · OUR ASK</div><div class="r">15 / 15</div></div>
+    <div class="chrome-min"><div class="l">NEXT STEPS · OUR ASK</div><div class="r">18 / 19</div></div>
     <div class="rg-ask-layout">
       <h2 style="font-family:var(--sans);font-size:min(5.2vw,8.8vh);font-weight:300;line-height:.98;letter-spacing:-.045em">Next 12 months</h2>
       <div data-anim="duo" class="rg-ask-body">
@@ -2251,6 +2338,45 @@ hoursLast12M ≥ 1,250</code></pre>
   </div>
 </section>
 
+<section class="slide light" data-layout="S20" data-slide-id="appendix-feature-comparison">
+  <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
+    <div class="chrome-min"><div class="l">APPENDIX · COMPETITIVE DETAIL</div><div class="r">19 / 19</div></div>
+    <div class="rg-appendix-layout">
+      <div class="rg-appendix-head">
+        <h2>Appendix — Feature matrix</h2>
+        <p>RuleGrid combines formation support with continuous legal research, reasoning, and monitoring.</p>
+      </div>
+      <div class="rg-appendix-table-wrap">
+        <table class="rg-appendix-table" aria-label="RuleGrid competitor feature comparison">
+          <thead>
+            <tr>
+              <th scope="col">Capability</th>
+              <th scope="col" class="rulegrid-col">RuleGrid</th>
+              <th scope="col">Clerky</th>
+              <th scope="col">LegalZoom</th>
+              <th scope="col">Harbor<br>Compliance</th>
+              <th scope="col">Mosey</th>
+              <th scope="col">Gusto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Entity Formation</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓<sup>*</sup></span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">VC Formation Docs</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓<sup>*</sup></span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">Entity Compliance</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓<sup>*</sup></span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">License Research AI</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">HR Compliance</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓<sup>*</sup></span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark yes">✓</span></td></tr>
+            <tr><th scope="row">Legal RAG</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">Legal Reasoning</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">Law Hierarchy</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+            <tr><th scope="row">Precedent Tracking</th><td class="rulegrid-col"><span class="rg-appendix-mark yes">✓</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td><td><span class="rg-appendix-mark no">×</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="rg-appendix-foot t-meta"><span>* LAWYER-SUPPORTED WORKFLOW</span><span>GOOGLE SLIDES · PAGE 29</span></div>
+    </div>
+  </div>
+</section>
+
 </div>
 
 <script>
@@ -2260,9 +2386,16 @@ hoursLast12M ≥ 1,250</code></pre>
     const team=document.querySelector('[data-slide-id="team"]');
     if(demo&&team) demo.before(team);
     let anchor=document.querySelector('[data-slide-id="superpower"]');
-    ['market','competition','business-model','financials'].forEach(id=>{
+    ['market','competition','business-model','financials','ivan-experience','ivan-gtm-letter','ivan-market-validation'].forEach(id=>{
       const slide=document.querySelector(`[data-slide-id="${id}"]`);
       if(anchor&&slide){anchor.after(slide);anchor=slide;}
+    });
+    const activeSlides=[...document.querySelectorAll('#deck > section.slide')];
+    activeSlides.forEach((slide,index)=>{
+      const marker=slide.querySelector('.chrome-min .r');
+      if(marker&&/^\s*\d+\s*\/\s*\d+\s*$/.test(marker.textContent)){
+        marker.textContent=`${String(index+1).padStart(2,'0')} / ${activeSlides.length}`;
+      }
     });
   })();
 </script>
@@ -2272,21 +2405,25 @@ hoursLast12M ≥ 1,250</code></pre>
 <!-- Speaker notes: IDs match section[data-slide-id] and remain stable across reordering. -->
 <script>
 const SPEAKER_NOTES = [
-  {id:'cover',title:'RuleGrid',section:'Elevator',purpose:'State the company and create urgency without explaining the full product.',talk:['RuleGrid begins with a business change, not a legal search box.','The opening promise is simple: help growing companies see legal consequences before they become expensive surprises.'],transition:'Ivan now grounds that promise in the moment when legal obligations actually change.'},
-  {id:'legal-complexity-blocks-growth',title:'Legal complexity blocks growth',section:'Problem',purpose:'State the two supplied problem claims with strong visual hierarchy.',talk:['One in three businesses don’t expand because of legal complexity and the obscene cost of lawyers.','Nine out of ten businesses don’t have anyone watching their regulatory landscape.','The result is that owners discover obligations late—after a decision or violation.'],transition:'The next question is why the existing options do not solve this efficiently.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7771ba43f_1_15']},
-  {id:'broken-legal-workflow',title:'Two incomplete workflows',section:'Need',purpose:'Contrast the reliability failures of general AI with the time-based cost of professional legal research.',talk:['General AI can rely on unverified sources, apply outdated law, or miss the controlling jurisdiction.','Professional legal research is billed by the hour after repeated rounds of fact collection.','Growing companies are forced to choose between low assurance and high friction.'],transition:'Austin now defines the product built to solve both sides of that workflow.',sources:['https://simpleicons.org/?q=claude','https://simpleicons.org/?q=gemini','https://simpleicons.org/?q=deepseek','https://simpleicons.org/?q=meta','https://simpleicons.org/?q=x','AI-generated from the user-provided reference: images/problem-legal-documents.png']},
-  {id:'product-positioning',title:'RuleGrid is an enterprise growth tool',section:'Positioning',purpose:'State the product category and value proposition in two direct sentences.',talk:['RuleGrid is an enterprise growth tool for legal risk assessment planning your path forward.','RuleGrid is unlimited access to 80 percent of what a lawyer can do at almost none of the cost.','It prepares the facts, research, and structured compliance map so professional time can focus on judgment and review.'],transition:'The next slide asks what makes that possible.'},
+  {id:'cover',title:'RuleGrid',section:'Elevator',purpose:'State the company and create urgency without explaining the full product.',talk:['Legal rules kill your business. We’re here to rescue you.','RuleGrid begins with a business change, not a legal search box.','The opening promise is simple: help growing companies see legal consequences before they become expensive surprises.'],transition:'Ivan now grounds that promise in the moment when legal obligations actually change.'},
+  {id:'legal-complexity-blocks-growth',title:'Legal complexity blocks growth',section:'Problem',purpose:'State the two supplied problem claims with strong visual hierarchy.',talk:['LegalZoom’s 2026 survey found that one in three small business owners say compliance requirements prevented them from pursuing new opportunities.','Nine out of ten businesses don’t have anyone watching their regulatory landscape; the slide labels the ACC and LawGeex general-counsel data as a coverage proxy.','The result is that owners discover obligations late—after a decision or violation.'],transition:'The next question is why the existing options do not solve this efficiently.',sources:['https://www.legalzoom.com/press-releases/legalzoom-compliance-survey-2026','https://www.acc.com/sites/default/files/2020-02/The%202019%20General%20Counsel%20Landscape%20-%20LawGeex.pdf']},
+  {id:'broken-legal-workflow',title:'Run law in time',section:'Need',purpose:'Contrast the reliability failures of general AI with the time-based cost of professional legal research.',talk:['General AI can rely on unverified sources, apply the wrong law in time, or miss the controlling jurisdiction.','Professional legal research is billed by the hour after repeated rounds of fact collection.','Growing companies are forced to choose between low assurance and high friction.'],transition:'Austin now defines the product built to solve both sides of that workflow.',sources:['https://simpleicons.org/?q=claude','https://simpleicons.org/?q=gemini','https://simpleicons.org/?q=deepseek','https://simpleicons.org/?q=meta','https://simpleicons.org/?q=x','AI-generated from the user-provided reference: images/problem-legal-documents.png']},
+  {id:'product-positioning',title:'RuleGrid is an enterprise growth tool',section:'Positioning',purpose:'Name the initial customer, product category, workflow, and value proposition.',talk:['RuleGrid is built for small and midsize businesses that do not have an in-house legal team.','RuleGrid is an enterprise growth tool for legal risk assessment planning your path forward.','It continuously matches the Company Profile against changing laws, identifies what applies, and tells the business what to do next.','RuleGrid provides unlimited access to 80 percent of what a lawyer can do at almost none of the cost.'],transition:'The next slide asks what makes that possible.'},
   {id:'path-forward-question',title:'How can we help in the way no one else can?',section:'Solution Setup',purpose:'Create a clean question-led handoff into the team and product demonstration.',talk:['How is it we can help you find the path forward in the way that no one else can?','The answer is not another generic legal chatbot.','It begins with a team combining law, trustworthy AI, evaluation, engineering, and market analysis.'],transition:'Meet the team building that path before seeing the product in action.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_8_5']},
   {id:'solution',title:'LexCompliance AI business view',section:'Demo',purpose:'Walk through two business-change scenarios, then reveal the complete compliance map without leaving the slide.',talk:['Enter directly at the top of Scenario 1 in the 50 percent view.','Advance to follow Scenario 1 down to its detailed obligations.','The next two advances move through Scenario 2 from top to bottom.','The final in-slide advance zooms out to show all four scenarios together.'],transition:'Xia now answers the question investors are likely asking: why not use a frontier LLM directly?',sources:['Local project asset: AutoCheck_BMoE_StyleB_IKB/lexcompliance-business-view.html?step=0']},
   {id:'team',title:'Meet Our Team',section:'Team',purpose:'Introduce the five complementary owners before the product demonstration.',talk:['Ivan brings business and law expertise to legal strategy.','Xia leads trustworthy AI, rule extraction, reasoning, and validation.','Austin owns evaluation design, modeling, and uncertainty.','Madhukeshwargouda leads product engineering and software development.','Ramya leads market analysis.'],transition:'Now see how this combination appears in the live RuleGrid workflow.'},
-  {id:'llm-structural-blind-spot',title:'Why LLMs still not good enough',section:'Evidence',purpose:'Show the same time-applicability failure across three independent legal systems.',talk:['Three independent studies report the same structural failure across U.S., Chinese, and German law.','The models perform well when new law applies, but fail when older law governs the facts.','Use the citations as evidence, then move immediately to the trust-layer design.'],transition:'The next slide shows how RuleGrid translates an answer into constraints and validates the applicable law.',sources:['https://doi.org/10.3233/FAIA251592','https://arxiv.org/abs/2608.14610','https://arxiv.org/abs/2605.23497']},
+  {id:'llm-structural-blind-spot',title:'Why LLMs are still not good enough',section:'Evidence',purpose:'Show the same time-applicability failure across three independent legal systems.',talk:['Three independent studies report the same structural failure across U.S., Chinese, and German law.','The models perform well when new law applies, but fail when older law governs the facts.','Use the citations as evidence, then move immediately to the trust-layer design.'],transition:'The next slide shows how RuleGrid translates an answer into constraints and validates the applicable law.',sources:['https://doi.org/10.3233/FAIA251592','https://arxiv.org/abs/2608.14610','https://arxiv.org/abs/2605.23497']},
   {id:'constraint-guided-legal-reasoning',title:'Constraint-Guided Legal Reasoning Engine',section:'Superpower',purpose:'Show the translate-then-validate workflow with a concrete federal-versus-state leave example.',talk:['A general model proposes FMLA eligibility from tenure and hours.','RuleGrid translates the company and employee facts into explicit variables.','The SMT solver checks every condition: the federal FMLA claim fails the 50-employees-within-75-miles test.','California CFRA has a different employer threshold, so the system surfaces that path and routes the conclusion for professional review.'],transition:'The next slide summarizes the three technical capabilities that make this check repeatable.',sources:['https://www.dol.gov/agencies/whd/fact-sheets/28-fmla','https://calcivilrights.ca.gov/employment/family-care-medical-leave-guide/']},
   {id:'superpower',title:'Hybrid neuro-symbolic AI',section:'Superpower',purpose:'Summarize the three technical capabilities of the reasoning layer.',talk:['Time-aware reasoning applies the right law at the right time.','Controlling-law reasoning models which federal, state, or local rule wins.','Authentic sources use precedents and agency actions to ground enforcement-risk prioritization.'],transition:'The next four slides move from technical differentiation to market, competitive positioning, pricing, and the financial target.'},
   {id:'market',title:'Market Size - 2026',section:'Market',purpose:'Preserve the Google Slides market-size figures and TAM, SAM, and SOM structure.',talk:['The regulatory compliance management software market volume is shown as $12 billion with an 11.2 percent CAGR.','The source slide maps TAM to 36 million U.S. SMEs, SAM to 4 million California SMEs, and SOM to 500,000 California SMEs.','The speaker note identifies 4 million California SMEs as the immediate target market.'],transition:'The next slide positions RuleGrid against the alternatives customers already use.',sources:['https://advocacy.sba.gov/wp-content/uploads/2020/06/2020-Small-Business-Economic-Profile-CA.pdf','https://www.thebusinessresearchcompany.com/report/regulatory-compliance-management-software-global-market-report']},
   {id:'competition',title:'Fast, Active Legal Monitoring — At Lower Cost',section:'Competition',purpose:'Recreate the Google Slides competitor map with speed, monitoring behavior, cost, and reviewability.',talk:['Circle size represents cost, the horizontal axis represents speed, and the vertical axis moves from passive to active monitoring.','Traditional lawyers are reviewable but highest cost; general AI is fast with weak assurance; Gusto and Mosey are active with standardized scope.','RuleGrid targets the company-aware, active, fast, lower-cost, and reviewable position.','Active means continuous monitoring, whereas a lawyer monitors passively.'],transition:'The next slide shows the two-tier commercial model behind that position.'},
   {id:'business-model',title:'Business model',section:'Business model',purpose:'Present the two complementary revenue streams and the Mosey benchmark.',talk:['The subscription begins with a freemium entry point, then moves to $200 per month.','Mosey provides a competitor benchmark at $399 per month.','The second revenue stream is a lawyer and CPA marketplace at $500 per month.'],transition:'The next slide states the 2031 financial target supported by this model.'},
-  {id:'financials',title:'Financial Target',section:'Financials',purpose:'Present the net-income target, customer target, and implied market penetration as one scanable outcome.',talk:['The target is $15 million in net income by 2031.','That plan assumes 6,000 customers, representing 0.02 percent of the total market.'],transition:'The final slide converts the vision into a 12-month execution plan and a concrete ask.'},
-  {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'}
+  {id:'financials',title:'Financial Target',section:'Financials',purpose:'Present the net-income target, customer target, and implied market penetration as one scanable outcome.',talk:['The target is $15 million in net income by 2031.','That plan assumes 6,000 customers, representing 0.02 percent of the total market.'],transition:'Ivan now closes from his experience across law and business.'},
+  {id:'ivan-experience',title:'Experience',section:'Founder experience',purpose:'Ground Ivan’s closing in the experience already supplied in the old deck.',talk:["I'm Ivan. I'm a lawyer and a businessman.",'Working across 20 countries, I know how slow and expensive legal advice can be.','I have seen regulation stop businesses that were not prepared.'],transition:'That experience leads to one concrete first-customer experiment.',sources:['Visual and content structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · legal-advice-slow']},
+  {id:'ivan-gtm-letter',title:'First Acquisition Experiment',section:'Go-to-market',purpose:'Present one concrete outbound experiment without expanding into a broad channel strategy.',talk:['One of our first GTM experiments is straightforward.','We identify companies that have faced public regulatory enforcement, contact them directly, and invite them to try RuleGrid.','The initial assessment brings them in; ongoing monitoring and warnings give them a reason to stay.'],transition:'The next slide shows why the broader compliance-infrastructure category is already receiving serious investment and platform attention.',sources:['Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · regulatory-letter']},
+  {id:'ivan-market-validation',title:'Market Validation',section:'Market validation',purpose:'Use Mosey funding and acquisition as category validation without claiming it proves RuleGrid demand.',talk:['Mosey raised an $18 million Series A and was acquired by Gusto in 2026.','This does not prove RuleGrid by itself.','It shows that investors and major business platforms already recognize compliance infrastructure as a valuable category.'],transition:'The final slide turns that opportunity into a measurable 12-month execution plan and funding ask.',sources:['https://mosey.com/blog/mosey-series-a-fundraise/','https://mosey.com/blog/mosey-is-joining-gusto/','Visual structure adapted from the user-designated old HTML slide: /Users/xiazong/Downloads/AutoCheck_BMoE_StyleB_IKB/index.html · mosey-proof']},
+  {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'},
+  {id:'appendix-feature-comparison',title:'Appendix — Feature matrix',section:'Appendix',purpose:'Provide a detailed, transposed comparison of RuleGrid and five adjacent products.',talk:['Use this appendix only if an investor asks how the product differs feature by feature.','The comparison separates standardized formation and compliance workflows from legal RAG, reasoning, hierarchy, and precedent tracking.','Asterisks identify capabilities delivered through a lawyer-supported workflow.'],transition:'Return to the relevant discussion question.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_0_61']}
 ];
 window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 </script>
@@ -2508,6 +2645,35 @@ function toggleOverview(){
   if(overviewOn){buildOverview();ov.style.display='block';}
   else{ov.style.display='none';}
 }
+
+/* =============== 跨平台一键全屏 =============== */
+function getFullscreenElement(){
+  return document.fullscreenElement||document.webkitFullscreenElement||null;
+}
+async function toggleFullscreen(){
+  try{
+    if(getFullscreenElement()){
+      const exit=document.exitFullscreen||document.webkitExitFullscreen;
+      if(exit)await exit.call(document);
+    }else{
+      const root=document.documentElement;
+      const enter=root.requestFullscreen||root.webkitRequestFullscreen;
+      if(enter)await enter.call(root);
+    }
+  }catch(e){}
+  updateFullscreenControl();
+}
+function updateFullscreenControl(){
+  const button=document.getElementById('ppt-fullscreen-btn');
+  if(!button)return;
+  const active=Boolean(getFullscreenElement());
+  const label=button.querySelector('.ppt-fullscreen-label');
+  if(label)label.textContent=active?'EXIT FULLSCREEN':'FULLSCREEN';
+  button.setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');
+  button.title=active?'Exit fullscreen (F or Esc)':'Enter fullscreen (F)';
+}
+addEventListener('fullscreenchange',updateFullscreenControl);
+addEventListener('webkitfullscreenchange',updateFullscreenControl);
 
 /* =============== 演讲者模式 / 观众屏同步 =============== */
 window.__pptPresenter=(()=>{
@@ -2870,7 +3036,7 @@ window.__pptPresenter=(()=>{
     return[
       {label:'观众屏连接',ok:['synced','frozen'].includes(syncState()),detail:`当前状态：${document.getElementById('ppt-sync')?.textContent||'未连接'}`},
       {label:'弹窗权限',ok:!popupBlocked,detail:popupBlocked?'浏览器阻止了观众窗口':'未检测到弹窗拦截'},
-      {label:'全屏状态',ok:Boolean(document.fullscreenElement),warn:true,detail:document.fullscreenElement?'已进入全屏':'尚未全屏，可在演讲前进入'},
+      {label:'全屏状态',ok:Boolean(getFullscreenElement()),warn:true,detail:getFullscreenElement()?'已进入全屏':'尚未全屏，可在演讲前进入'},
       {label:'字体加载',ok:!document.fonts||document.fonts.status==='loaded',detail:document.fonts?`状态：${document.fonts.status}`:'浏览器不提供字体状态'},
       {label:'图片资源',ok:images.every(image=>image.complete&&image.naturalWidth>0),detail:`${images.filter(image=>image.complete&&image.naturalWidth>0).length} / ${images.length} 已加载`},
       {label:'视频资源',ok:videos.every(video=>video.readyState>=2),detail:videos.length?`${videos.filter(video=>video.readyState>=2).length} / ${videos.length} 可播放`:'没有视频'},
@@ -2879,9 +3045,9 @@ window.__pptPresenter=(()=>{
   }
   function openPreflight(){
     const checks=preflightChecks(),html=checks.map(item=>`<div class="ppt-dialog-row"><div class="ppt-check ${item.ok?'is-ok':(item.warn?'is-warn':'')}"><span class="ppt-check-dot"></span><span><strong>${item.label}</strong><br><span class="ppt-muted">${item.detail}</span></span></div><strong>${item.ok?'正常':(item.warn?'建议':'异常')}</strong></div>`).join('');
-    openDialog('演前检查',`<div class="ppt-dialog-section">${html}</div><div class="ppt-dialog-section"><button id="ppt-preflight-refresh" class="ppt-ui-btn" type="button">重新检查</button> <button id="ppt-enter-fullscreen" class="ppt-ui-btn" type="button">进入全屏</button></div><p class="ppt-muted">这里只能检查浏览器和观众页面的软件状态，不能确认 HDMI、转接器或投影仪线缆是否物理连接。</p>`);
+    openDialog('演前检查',`<div class="ppt-dialog-section">${html}</div><div class="ppt-dialog-section"><button id="ppt-preflight-refresh" class="ppt-ui-btn" type="button">重新检查</button> <button id="ppt-enter-fullscreen" class="ppt-ui-btn" type="button">${getFullscreenElement()?'退出全屏':'进入全屏'}</button></div><p class="ppt-muted">这里只能检查浏览器和观众页面的软件状态，不能确认 HDMI、转接器或投影仪线缆是否物理连接。</p>`);
     document.getElementById('ppt-preflight-refresh').onclick=openPreflight;
-    document.getElementById('ppt-enter-fullscreen').onclick=async()=>{try{await document.documentElement.requestFullscreen();}catch(e){}openPreflight();};
+    document.getElementById('ppt-enter-fullscreen').onclick=async()=>{await toggleFullscreen();openPreflight();};
   }
 
   function initTransport(){
@@ -2988,6 +3154,8 @@ window.__pptPresenter=(()=>{
     document.getElementById('ppt-low-power-btn')?.addEventListener('click',()=>window.__setLowPowerMode(!window.__lowPowerMode));
     document.getElementById('ppt-overview-btn')?.addEventListener('click',toggleOverview);
     document.getElementById('ppt-presenter-btn')?.addEventListener('click',()=>enterPresenter(true));
+    document.getElementById('ppt-fullscreen-btn')?.addEventListener('click',toggleFullscreen);
+    updateFullscreenControl();
     if(requestedMode==='audience')initAudience();else if(requestedMode==='preview')initPreview();else if(requestedMode==='presenter')enterPresenter(false);
   }
   setInterval(()=>{
@@ -3004,6 +3172,11 @@ addEventListener('keydown',e=>{
   if(e.key && e.key.toLowerCase()==='b' && !e.metaKey && !e.ctrlKey && !e.altKey){
     e.preventDefault();
     window.__setLowPowerMode(!window.__lowPowerMode);
+    return;
+  }
+  if(e.key && e.key.toLowerCase()==='f' && !e.metaKey && !e.ctrlKey && !e.altKey){
+    e.preventDefault();
+    toggleFullscreen();
     return;
   }
   if(overviewOn)return;
