@@ -1259,7 +1259,7 @@
 .rg-price-tier{background:var(--accent);color:#fff;border-top:4px solid var(--ink);padding:2.8vh 2vw;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
 .rg-price-tier.alt{border-top-color:var(--accent);background:#eceef2;color:var(--ink)}
 .rg-price-tier .tier-label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary)}
-.rg-price-tier.alt .tier-label{color:rgba(255,255,255,.55)}
+.rg-price-tier.alt .tier-label{color:var(--text-secondary)}
 .rg-price-tier .tier-title{font-family:var(--sans);font-size:min(2.35vw,4vh);font-weight:650;line-height:1.08;margin:2vh 0}
 .rg-price-tier .tier-price{font-family:var(--sans);font-size:min(4.5vw,7.6vh);font-weight:250;line-height:.95;letter-spacing:-.045em;color:#fff}
 .slide.dark .rg-price-tier:not(.alt) .t-body-sm{color:var(--text-secondary)}
@@ -1598,10 +1598,15 @@
       </div>
       <div style="display:flex;justify-content:flex-start;align-items:center;padding-left:4vw;min-height:0">
         <div role="img" aria-label="Pie chart showing one third" style="width:min(18vw,29vh);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--accent) 0 33.333%,#dfe2e7 33.333% 100%);box-shadow:inset 0 0 0 1px rgba(17,24,39,.12);display:grid;place-items:center;transform:rotate(-90deg)">
-          <div style="width:38%;aspect-ratio:1;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-family:var(--sans);font-size:min(2.25vw,3.8vh);font-weight:760;letter-spacing:-.035em;color:var(--accent);transform:rotate(90deg)">1/3</div>
+          <div aria-hidden="true" style="width:38%;aspect-ratio:1;border-radius:50%;background:var(--paper)"></div>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border-strong);padding:2.1vh 0 0 18.2vw;font-family:var(--sans);font-size:min(2.35vw,3.95vh);font-weight:520;line-height:1.22;color:var(--text-secondary)">9 out of 10 businesses don’t have anyone watching their regulatory landscape</div>
+      <div style="display:grid;grid-template-columns:1fr auto;gap:3vw;align-items:center;border-top:1px solid var(--border-strong);padding:1.7vh 2.5vw 0 18.2vw">
+        <div style="font-family:var(--sans);font-size:min(2.35vw,3.95vh);font-weight:520;line-height:1.22;color:var(--text-secondary)">9 out of 10 businesses don’t have anyone watching their regulatory landscape</div>
+        <div role="img" aria-label="Pie chart showing nine out of ten" style="width:min(7.2vw,11.8vh);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--accent) 0 90%,#dfe2e7 90% 100%);box-shadow:inset 0 0 0 1px rgba(17,24,39,.12);display:grid;place-items:center;transform:rotate(-90deg)">
+          <div aria-hidden="true" style="width:36%;aspect-ratio:1;border-radius:50%;background:var(--paper)"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -2091,7 +2096,7 @@ hoursLast12M ≥ 1,250</code></pre>
   <div class="canvas-card">
     <div class="chrome-min tight"><div class="l">MARKET SIZE · 2026</div><div class="r">11 / 15</div></div>
     <div class="rg-market-layout">
-      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:200;font-size:min(5.4vw,9.2vh);line-height:.98;letter-spacing:-.04em">Market Size - 2026</h2></div>
+      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.9vw,8.3vh);line-height:.98;letter-spacing:-.04em">Market Size — 2026</h2></div>
       <div class="rg-market-body" data-anim="duo">
         <div class="rg-market-primary">
           <div class="value">$12bn</div>
@@ -2109,7 +2114,7 @@ hoursLast12M ≥ 1,250</code></pre>
           </div>
         </div>
       </div>
-      <div class="rg-source-row" data-anim="foot"><span>Sources</span><a href="https://advocacy.sba.gov/wp-content/uploads/2020/06/2020-Small-Business-Economic-Profile-CA.pdf" target="_blank" rel="noreferrer">source 1</a><a href="https://www.thebusinessresearchcompany.com/report/regulatory-compliance-management-software-global-market-report" target="_blank" rel="noreferrer">source 2</a></div>
+      <div class="rg-source-row" data-anim="foot"><span>Sources</span><a href="https://advocacy.sba.gov/wp-content/uploads/2020/06/2020-Small-Business-Economic-Profile-CA.pdf" target="_blank" rel="noreferrer">[1] SBA · California Profile</a><a href="https://www.thebusinessresearchcompany.com/report/regulatory-compliance-management-software-global-market-report" target="_blank" rel="noreferrer">[2] Market Report</a></div>
     </div>
   </div>
 </section>
@@ -2130,28 +2135,28 @@ hoursLast12M ≥ 1,250</code></pre>
   </div>
 </section>
 
-<section class="slide dark" data-layout="S05" data-animate="stack-build" data-slide-id="business-model">
+<section class="slide light" data-layout="S05" data-animate="stack-build" data-slide-id="business-model">
   <div class="canvas-card">
     <div class="chrome-min"><div class="l">BUSINESS MODEL · REVENUE</div><div class="r">13 / 15</div></div>
     <div class="rg-business-layout">
-      <div data-anim="head"><div class="t-meta" style="color:rgba(255,255,255,.58)">TWO TIERS</div><h2 style="font-family:var(--sans);font-weight:200;font-size:min(5.5vw,9.4vh);line-height:.98;letter-spacing:-.035em;color:#fff">Business model</h2></div>
+      <div data-anim="head"><div class="t-meta" style="color:var(--accent)">TWO COMPLEMENTARY REVENUE STREAMS</div><h2 style="font-family:var(--sans);font-weight:280;font-size:min(5.1vw,8.7vh);line-height:.98;letter-spacing:-.035em;color:var(--ink)">Business model</h2></div>
       <div data-anim="stack" class="rg-business-grid">
         <article class="rg-price-tier">
-          <div><div class="tier-label">TIER 01</div><h3 class="tier-title">Our Subscription Price</h3></div>
-          <div class="tier-price">FreePremium</div>
-          <div class="t-body-sm">then for $200/month</div>
+          <div><div class="tier-label" style="color:rgba(255,255,255,.68)">TIER 01</div><h3 class="tier-title">Subscription</h3></div>
+          <div class="tier-price">Freemium</div>
+          <div class="t-body-sm" style="color:rgba(255,255,255,.82)">then $200/month</div>
         </article>
         <div class="rg-price-benchmark">
-          <div class="t-meta" style="color:rgba(255,255,255,.58)">COMPETITOR</div>
-          <div class="t-body-emp" style="color:#fff;margin-top:1.2vh">Mosey Price</div>
+          <div class="t-meta" style="color:var(--text-secondary)">COMPETITOR</div>
+          <div class="t-body-emp" style="color:var(--ink);margin-top:1.2vh">Mosey</div>
           <div class="price">$399/month</div>
         </div>
         <article class="rg-price-tier alt">
-          <div><div class="tier-label">TIER 02</div><h3 class="tier-title">Marketplace of Lawyers and CPA</h3></div>
+          <div><div class="tier-label">TIER 02</div><h3 class="tier-title">Lawyer + CPA marketplace</h3></div>
           <div class="tier-price">$500/month</div>
         </article>
       </div>
-      <div data-anim="bottom" style="border-top:1px solid rgba(255,255,255,.22)"></div>
+      <div data-anim="bottom" style="border-top:1px solid var(--border-strong)"></div>
     </div>
   </div>
 </section>
@@ -2175,18 +2180,18 @@ hoursLast12M ≥ 1,250</code></pre>
   <div class="canvas-card">
     <div class="chrome-min tight"><div class="l">COMPETITIVE POSITIONING</div><div class="r">12 / 15</div></div>
     <div class="rg-competition-layout">
-      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:200;font-size:min(4.5vw,7.7vh);line-height:.98;letter-spacing:-.035em">Fast, active legal monitoring — at lower cost</h2></div>
+      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.25vw,7.25vh);line-height:.98;letter-spacing:-.035em">Fast, active legal monitoring — at lower cost</h2></div>
       <div class="rg-map-legend"><div class="rg-cost-key"><span>CIRCLE SIZE = COST</span><span class="rg-key-circle sm"></span><span class="rg-key-circle md"></span><span class="rg-key-circle lg"></span><span>LOW → HIGH</span></div><div>✓ = REVIEWABLE</div></div>
       <div class="rg-competitive-map" data-anim="duo">
         <div class="rg-target-zone"></div>
         <div class="rg-axis-y">PASSIVE → ACTIVE</div><div class="rg-axis-x">SPEED: SLOW → FAST</div>
         <div class="rg-axis-end active">ACTIVE</div><div class="rg-axis-end passive">PASSIVE</div><div class="rg-axis-end slow">SLOW</div><div class="rg-axis-end fast">FAST</div>
 
-        <div class="rg-map-node reviewable rg-node-lawyer"><div class="rg-node-circle">✓</div><div class="rg-node-copy"><strong>Traditional lawyer</strong><span>Reviewable; highest cost</span></div></div>
+        <div class="rg-map-node reviewable rg-node-lawyer"><div class="rg-node-circle">✓</div><div class="rg-node-copy"><strong>Traditional lawyer</strong><span>Reviewable · highest cost</span></div></div>
         <div class="rg-map-node rg-node-legalzoom"><div class="rg-node-circle"></div><div class="rg-node-copy"><strong>LegalZoom</strong><span>Review depends on service</span></div></div>
-        <div class="rg-map-node reverse rg-node-chat"><div class="rg-node-circle"></div><div class="rg-node-copy"><strong>ChatGPT / Claude</strong><span>Fast; weak assurance</span></div></div>
-        <div class="rg-map-node reverse rg-node-gusto"><div class="rg-node-circle"></div><div class="rg-node-copy"><strong>Gusto / Mosey</strong><span>Active; standardized scope</span></div></div>
-        <div class="rg-map-node reverse target rg-node-target"><div class="rg-node-circle">✓</div><div class="rg-node-copy"><strong>TARGET: COMPANY-AWARE + ACTIVE</strong><span>RuleGrid target · Fast + lower cost + reviewable</span></div></div>
+        <div class="rg-map-node reverse rg-node-chat"><div class="rg-node-circle"></div><div class="rg-node-copy"><strong>ChatGPT / Claude</strong><span>Fast · weak assurance</span></div></div>
+        <div class="rg-map-node reverse rg-node-gusto"><div class="rg-node-circle"></div><div class="rg-node-copy"><strong>Gusto / Mosey</strong><span>Active · standardized scope</span></div></div>
+        <div class="rg-map-node reverse target rg-node-target"><div class="rg-node-circle">✓</div><div class="rg-node-copy"><strong>RULEGRID</strong><span>Company-aware · active · fast · reviewable</span></div></div>
       </div>
     </div>
   </div>
@@ -2209,13 +2214,13 @@ hoursLast12M ≥ 1,250</code></pre>
 
 <section class="slide grey" data-layout="S08" data-animate="duo-mirror" data-slide-id="financials">
   <div class="canvas-card">
-    <div class="chrome-min tight"><div class="l">FINANCIAL PROJECTIONS · RAMYA</div><div class="r">14 / 15</div></div>
+    <div class="chrome-min tight"><div class="l">FINANCIAL PROJECTIONS · 2031</div><div class="r">14 / 15</div></div>
     <div class="rg-financial-layout">
-      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:200;font-size:min(5.4vw,9.2vh);line-height:.98;letter-spacing:-.04em">Financial Projections RAMYA</h2></div>
+      <div data-anim="head"><h2 style="font-family:var(--sans);font-weight:280;font-size:min(4.8vw,8.15vh);line-height:.98;letter-spacing:-.04em">2031 financial target</h2></div>
       <div class="rg-financial-body" data-anim="duo">
-        <div class="rg-financial-primary"><div class="amount">15</div><div class="metric">mn in Net Income</div></div>
+        <div class="rg-financial-primary"><div class="amount">$15M</div><div class="metric">in net income</div></div>
         <div class="rg-financial-side">
-          <div class="rg-financial-stat"><strong>6000</strong><span>customers</span></div>
+          <div class="rg-financial-stat"><strong>6,000</strong><span>customers</span></div>
           <div class="rg-financial-stat"><strong>0.02%</strong><span>of the total market</span></div>
         </div>
       </div>
@@ -2227,22 +2232,21 @@ hoursLast12M ≥ 1,250</code></pre>
 <section class="slide light" data-layout="S08" data-animate="duo-mirror" data-slide-id="ask">
   <div class="canvas-card" style="background:#f7f7f6;color:var(--ink)">
     <div class="chrome-min"><div class="l">NEXT STEPS · OUR ASK</div><div class="r">15 / 15</div></div>
-    <div style="flex:1;display:grid;grid-template-rows:auto 1fr;gap:3.8vh;padding:0 1.2vw 1vh;min-height:0">
-      <h2 style="font-family:var(--sans);font-size:min(5.6vw,9.4vh);font-weight:300;line-height:.98;letter-spacing:-.045em">Next steps</h2>
-      <div data-anim="duo" style="display:grid;grid-template-columns:1.65fr .85fr;gap:5vw;min-height:0">
-        <div style="display:grid;align-content:start;gap:2.5vh;border-top:3px solid var(--accent);padding-top:2.4vh">
-          <div style="font-family:var(--sans);font-size:min(2.25vw,3.8vh);font-weight:520;line-height:1.18;color:var(--text-secondary)">Expansion of next customers and types of service and features and type of usage</div>
-          <h3 style="margin:1.2vh 0 0;font-family:var(--sans);font-size:min(2.7vw,4.55vh);font-weight:560;line-height:1.05">Show Milestone</h3>
-          <div style="display:grid;gap:1.55vh;font-family:var(--sans);font-size:min(1.95vw,3.3vh);font-weight:480;line-height:1.18;color:var(--text-secondary)">
-            <div style="display:grid;grid-template-columns:2.2vw 1fr;gap:1vw"><span style="color:var(--accent);font-weight:760">1</span><span>if we will have 500k we will achieve - this</span></div>
-            <div style="display:grid;grid-template-columns:2.2vw 1fr;gap:1vw"><span style="color:var(--accent);font-weight:760">2</span><span>if we will have X - we will do it</span></div>
-            <div style="display:grid;grid-template-columns:2.2vw 1fr;gap:1vw"><span style="color:var(--accent);font-weight:760">3</span><span>if we will do this - we will have this</span></div>
-            <div style="display:grid;grid-template-columns:2.2vw 1fr;gap:1vw"><span style="color:var(--accent);font-weight:760">4</span><span>Vision point - Ambition</span></div>
-          </div>
+    <div class="rg-ask-layout">
+      <h2 style="font-family:var(--sans);font-size:min(5.2vw,8.8vh);font-weight:300;line-height:.98;letter-spacing:-.045em">Next 12 months</h2>
+      <div data-anim="duo" class="rg-ask-body">
+        <div class="rg-ask-milestones">
+          <div class="rg-ask-intro">Turn the prototype into a paid, repeatable product.</div>
+          <div class="rg-ask-step"><div class="n">01</div><div><strong>DESIGN PARTNERS</strong><span>Run 10 pilots with California SMBs facing a real growth trigger.</span></div></div>
+          <div class="rg-ask-step"><div class="n">02</div><div><strong>PAID BETA</strong><span>Convert the first 50 customers at $200/month.</span></div></div>
+          <div class="rg-ask-step"><div class="n">03</div><div><strong>RULE COVERAGE</strong><span>Launch California employment, tax nexus, and privacy monitoring.</span></div></div>
+          <div class="rg-ask-step"><div class="n">04</div><div><strong>DISTRIBUTION</strong><span>Prove one repeatable lawyer or CPA partner channel.</span></div></div>
         </div>
-        <div style="display:grid;align-content:center;gap:3.2vh;border-left:1px solid var(--border-strong);padding-left:3.2vw">
-          <h3 style="font-family:var(--sans);font-size:min(4.15vw,6.95vh);font-weight:380;line-height:1;letter-spacing:-.035em;color:var(--accent)">Our Ask:</h3>
-          <div style="font-family:var(--sans);font-size:min(2.85vw,4.8vh);font-weight:450;line-height:1.22;color:var(--text-secondary)">looking forward to hearing your suggestions about our pitch.</div>
+        <div class="rg-ask-panel">
+          <div class="t-meta">OUR ASK</div>
+          <div class="rg-ask-amount">$500K</div>
+          <div class="rg-ask-copy">Pre-seed funding to validate the product, expand rule coverage, and acquire the first paying customers.</div>
+          <div class="rg-ask-needs"><div>California SMB introductions</div><div>Lawyer + CPA design partners</div></div>
         </div>
       </div>
     </div>
@@ -2282,9 +2286,9 @@ const SPEAKER_NOTES = [
   {id:'superpower',title:'Hybrid neuro-symbolic AI',section:'Superpower',purpose:'Summarize the three technical capabilities of the reasoning layer.',talk:['Time-aware reasoning applies the right law at the right time.','Controlling-law reasoning models which federal, state, or local rule wins.','Authentic sources use precedents and agency actions to ground enforcement-risk prioritization.'],transition:'The next four slides move from technical differentiation to market, competitive positioning, pricing, and the financial target.'},
   {id:'market',title:'Market Size - 2026',section:'Market',purpose:'Preserve the Google Slides market-size figures and TAM, SAM, and SOM structure.',talk:['The regulatory compliance management software market volume is shown as $12 billion with an 11.2 percent CAGR.','The source slide maps TAM to 36 million U.S. SMEs, SAM to 4 million California SMEs, and SOM to 500,000 California SMEs.','The speaker note identifies 4 million California SMEs as the immediate target market.'],transition:'The next slide positions RuleGrid against the alternatives customers already use.',sources:['https://advocacy.sba.gov/wp-content/uploads/2020/06/2020-Small-Business-Economic-Profile-CA.pdf','https://www.thebusinessresearchcompany.com/report/regulatory-compliance-management-software-global-market-report']},
   {id:'competition',title:'Fast, active legal monitoring — at lower cost',section:'Competition',purpose:'Recreate the Google Slides competitor map with speed, monitoring behavior, cost, and reviewability.',talk:['Circle size represents cost, the horizontal axis represents speed, and the vertical axis moves from passive to active monitoring.','Traditional lawyers are reviewable but highest cost; general AI is fast with weak assurance; Gusto and Mosey are active with standardized scope.','RuleGrid targets the company-aware, active, fast, lower-cost, and reviewable position.','Active means continuous monitoring, whereas a lawyer monitors passively.'],transition:'The next slide shows the two-tier commercial model behind that position.'},
-  {id:'business-model',title:'Business model',section:'Business model',purpose:'Preserve the two-tier pricing and Mosey comparison from Google Slides page 27.',talk:['The first tier is FreePremium, then $200 per month.','The competitor benchmark shown is Mosey at $399 per month.','The second tier is a marketplace of lawyers and CPAs at $500 per month.'],transition:'The next slide states the 2031 financial target from the source deck.'},
-  {id:'financials',title:'Financial Projections RAMYA',section:'Financials',purpose:'Preserve the 2031 net-income, customer, and market-share targets from Google Slides page 28.',talk:['The source target is 15 million in net income by 2031.','It assumes 6,000 customers, representing 0.02 percent of the total market.'],transition:'The final slide sets out the next-step milestones and opens the floor for feedback.'},
-  {id:'ask',title:'Next steps',section:'Ask',purpose:'Close with the supplied milestone framework and request feedback on the pitch.',talk:['The next step is to expand the customer base, services, features, and types of usage.','The milestone framework connects available resources with what the team will build and achieve.','The longer-term point is the team’s ambition and vision.','We are looking forward to hearing your suggestions about our pitch.'],transition:'Open the floor for questions and suggestions.'}
+  {id:'business-model',title:'Business model',section:'Business model',purpose:'Present the two complementary revenue streams and the Mosey benchmark.',talk:['The subscription begins with a freemium entry point, then moves to $200 per month.','Mosey provides a competitor benchmark at $399 per month.','The second revenue stream is a lawyer and CPA marketplace at $500 per month.'],transition:'The next slide states the 2031 financial target supported by this model.'},
+  {id:'financials',title:'2031 financial target',section:'Financials',purpose:'Present the net-income target, customer target, and implied market penetration as one scanable outcome.',talk:['The target is $15 million in net income by 2031.','That plan assumes 6,000 customers, representing 0.02 percent of the total market.'],transition:'The final slide converts the vision into a 12-month execution plan and a concrete ask.'},
+  {id:'ask',title:'Next 12 months',section:'Ask',purpose:'Close with measurable milestones and a specific pre-seed ask.',talk:['First, run 10 design-partner pilots with California businesses facing a real growth trigger.','Second, convert the first 50 customers into a paid beta at $200 per month.','Third, launch monitoring for California employment, tax nexus, and privacy rules.','Fourth, prove one repeatable distribution channel through lawyers or CPAs.','We are raising $500,000 in pre-seed funding and looking for introductions to California SMBs and professional design partners.'],transition:'Open the floor for questions, introductions, and feedback.'}
 ];
 window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 </script>
