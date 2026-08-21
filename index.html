@@ -1211,30 +1211,31 @@
 #deck > .slide.dark .card-fill .t-body-emp{color:var(--ink)}
 
 /* Google Slides 25–28 · market, competition, business model, financials */
-.rg-market-layout{flex:1;display:grid;grid-template-rows:auto 1fr auto;gap:2.4vh;min-height:0}
-.rg-market-body{display:grid;grid-template-columns:4.2fr 7.8fr;gap:3vw;align-items:center;min-height:0}
-.rg-market-primary{border-top:3px solid var(--accent);padding-top:2.2vh}
-.rg-market-primary .value{font-family:var(--sans);font-size:min(8vw,13.4vh);font-weight:200;line-height:.82;letter-spacing:-.055em;color:var(--accent)}
-.rg-market-primary .label{font-family:var(--sans);font-size:max(20px,1.42vw);font-weight:650;line-height:1.22;margin-top:2vh}
-.rg-market-primary .growth{font-family:var(--mono);font-size:max(15px,.9vw);letter-spacing:.08em;margin-top:1.5vh;color:var(--text-secondary)}
-.rg-market-diagram{display:grid;grid-template-columns:1fr .76fr;gap:2.1vw;align-items:center;min-height:0}
-.rg-orbits{position:relative;width:min(27vw,46vh);aspect-ratio:1;margin:auto}
-.rg-orbit{position:absolute;left:50%;bottom:0;transform:translateX(-50%);border:2px solid var(--ink);border-radius:50%;display:flex;justify-content:center;font-family:var(--sans);font-weight:650;color:var(--ink)}
-.rg-orbit.tam{width:100%;height:100%;padding-top:15%;background:#efe8d6}
-.rg-orbit.sam{width:65%;height:65%;padding-top:13%;background:#dbe8dc}
-.rg-orbit.som{width:38%;height:38%;padding-top:11%;background:#ecd9da}
-.rg-market-values{display:grid;gap:2.3vh}
-.rg-market-value{border-top:1px solid var(--border-strong);padding-top:1.2vh}
-.rg-market-value strong{display:block;font-family:var(--sans);font-size:min(2.7vw,4.55vh);font-weight:300;line-height:1}
+.rg-market-layout{flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:2.2vh;min-height:0}
+.rg-market-body{display:grid;grid-template-columns:.78fr 1.22fr;gap:4.2vw;align-items:center;min-height:0}
+.rg-market-primary{border-left:4px solid var(--accent);padding:2.1vh 0 2.1vh 2vw;align-self:center}
+.rg-market-primary .value{font-family:var(--sans);font-size:min(8.6vw,14.5vh);font-weight:230;line-height:.8;letter-spacing:-.06em;color:var(--accent)}
+.rg-market-primary .label{font-family:var(--sans);font-size:max(21px,1.48vw);font-weight:650;line-height:1.18;margin-top:2.2vh;max-width:24vw}
+.rg-market-primary .growth{display:inline-block;font-family:var(--mono);font-size:max(15px,.9vw);font-weight:650;letter-spacing:.1em;margin-top:2vh;color:var(--text-secondary);border-top:1px solid var(--border-strong);padding-top:1.2vh}
+.rg-market-diagram{display:grid;grid-template-columns:1.1fr .72fr;gap:2.4vw;align-items:center;min-height:0}
+.rg-orbits{position:relative;width:min(28vw,47vh);aspect-ratio:1;margin:auto}
+.rg-orbit{position:absolute;left:50%;bottom:0;transform:translateX(-50%);border:2px solid rgba(0,47,167,.72);border-radius:50%;display:flex;justify-content:center;font-family:var(--mono);font-size:max(13px,.78vw);font-weight:750;letter-spacing:.08em;color:var(--ink)}
+.rg-orbit.tam{width:100%;height:100%;padding-top:15%;background:#f2eee3}
+.rg-orbit.sam{width:65%;height:65%;padding-top:13%;background:#e4ebe5}
+.rg-orbit.som{width:38%;height:38%;padding-top:11%;background:#dce5fb;border-color:var(--accent);color:var(--accent)}
+.rg-market-values{display:grid;gap:2.1vh}
+.rg-market-value{position:relative;border-top:1px solid var(--border-strong);padding:1.25vh 0 0 1.1vw}
+.rg-market-value:before{content:"";position:absolute;left:0;top:1.55vh;width:6px;height:6px;background:var(--accent)}
+.rg-market-value strong{display:block;font-family:var(--sans);font-size:min(2.85vw,4.8vh);font-weight:320;line-height:1;letter-spacing:-.025em}
 .rg-market-value span{display:block;font-family:var(--sans);font-size:max(16px,.94vw);color:var(--text-secondary);margin-top:.65vh}
 .rg-source-row{display:flex;gap:1.2vw;align-items:center;border-top:1px solid var(--border-subtle);padding-top:1.15vh;font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
 .rg-source-row a{color:var(--accent);text-underline-offset:.2em}
 
-.rg-competition-layout{flex:1;display:grid;grid-template-rows:auto auto 1fr;gap:1.4vh;min-height:0}
-.rg-map-legend{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-secondary)}
+.rg-competition-layout{flex:1;display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:1.2vh;min-height:0}
+.rg-map-legend{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary);padding-right:.4vw}
 .rg-cost-key{display:flex;align-items:center;gap:.7vw}.rg-key-circle{display:inline-block;border:1px solid #8f8f8f;border-radius:50%;background:transparent}.rg-key-circle.sm{width:12px;height:12px}.rg-key-circle.md{width:24px;height:24px}.rg-key-circle.lg{width:42px;height:42px}
-.rg-competitive-map{position:relative;min-height:0;margin:0 1.2vw 2.8vh 3.7vw;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);background-image:linear-gradient(to right,rgba(16,16,16,.11) 1px,transparent 1px),linear-gradient(to top,rgba(16,16,16,.11) 1px,transparent 1px);background-size:25% 100%,100% 25%}
-.rg-target-zone{position:absolute;right:0;top:0;width:28%;height:34%;background:rgba(47,128,237,.06);border-top:2px solid rgba(47,128,237,.18)}
+.rg-competitive-map{position:relative;min-height:0;margin:0 1.2vw 2.8vh 3.7vw;border-left:2px solid var(--ink);border-bottom:2px solid var(--ink);background-image:linear-gradient(to right,rgba(16,16,16,.075) 1px,transparent 1px),linear-gradient(to top,rgba(16,16,16,.075) 1px,transparent 1px);background-size:25% 100%,100% 25%}
+.rg-target-zone{position:absolute;right:0;top:0;width:33%;height:36%;background:linear-gradient(135deg,rgba(0,47,167,.035),rgba(0,47,167,.105));border-top:3px solid rgba(0,47,167,.34);border-left:1px solid rgba(0,47,167,.1)}
 .rg-axis-y{position:absolute;left:-4.1vw;top:50%;transform:translateY(-50%) rotate(-90deg);font-family:var(--mono);font-size:12px;letter-spacing:.09em;white-space:nowrap}
 .rg-axis-x{position:absolute;left:50%;bottom:-3.2vh;transform:translateX(-50%);font-family:var(--mono);font-size:12px;letter-spacing:.09em;white-space:nowrap}
 .rg-axis-end{position:absolute;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--text-secondary)}
@@ -1245,7 +1246,7 @@
 .rg-node-circle{width:var(--node-size);height:var(--node-size);border-radius:50%;background:#939393;display:grid;place-items:center;font-family:var(--sans);font-size:max(15px,1vw);color:var(--ink);box-shadow:0 0 0 1px rgba(16,16,16,.08)}
 .rg-map-node.reviewable .rg-node-circle{background:var(--paper);border:2px solid var(--ink)}
 .rg-map-node.target .rg-node-circle{background:var(--accent);border:7px solid rgba(47,128,237,.18);box-shadow:0 0 0 7px rgba(47,128,237,.1);color:#fff}
-.rg-node-copy strong{display:block;font-family:var(--sans);font-size:max(17px,1.05vw);font-weight:650;line-height:1.1}.rg-node-copy span{display:block;font-family:var(--sans);font-size:max(14px,.82vw);color:var(--text-secondary);margin-top:.45vh;line-height:1.15}
+.rg-node-copy strong{display:block;font-family:var(--sans);font-size:max(18px,1.08vw);font-weight:680;line-height:1.08}.rg-node-copy span{display:block;font-family:var(--sans);font-size:max(14px,.82vw);color:var(--text-secondary);margin-top:.45vh;line-height:1.15}
 .rg-map-node.target .rg-node-copy strong,.rg-map-node.target .rg-node-copy span{color:var(--accent)}
 .rg-node-lawyer{left:13%;bottom:15%;--node-size:min(7.1vw,12vh)}
 .rg-node-legalzoom{left:52%;bottom:10%;--node-size:min(3.7vw,6.2vh)}
@@ -1253,30 +1254,44 @@
 .rg-node-gusto{left:64%;top:32%;--node-size:min(4.6vw,7.8vh)}
 .rg-node-target{right:5%;top:6%;--node-size:min(3vw,5.1vh)}
 
-.rg-business-layout{flex:1;display:grid;grid-template-rows:auto auto 1fr auto;gap:2.4vh;min-height:0}
-.rg-business-grid{display:grid;grid-template-columns:1fr .72fr 1fr;gap:1.5vw;align-items:stretch}
-.rg-price-tier{background:var(--paper);color:var(--ink);border-top:4px solid var(--accent);padding:2.4vh 1.8vw;display:flex;flex-direction:column;justify-content:space-between}
-.rg-price-tier.alt{border-top-color:var(--paper);background:#25282e;color:#fff}
+.rg-business-layout{flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:2.6vh;min-height:0}
+.rg-business-grid{display:grid;grid-template-columns:1fr .5fr 1fr;gap:1.7vw;align-items:stretch;min-height:0}
+.rg-price-tier{background:var(--accent);color:#fff;border-top:4px solid var(--ink);padding:2.8vh 2vw;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+.rg-price-tier.alt{border-top-color:var(--accent);background:#eceef2;color:var(--ink)}
 .rg-price-tier .tier-label{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-secondary)}
 .rg-price-tier.alt .tier-label{color:rgba(255,255,255,.55)}
-.rg-price-tier .tier-title{font-family:var(--sans);font-size:min(2.35vw,4vh);font-weight:550;line-height:1.08;margin:2vh 0}
-.rg-price-tier .tier-price{font-family:var(--sans);font-size:min(4vw,6.8vh);font-weight:200;letter-spacing:-.04em;color:var(--accent)}
+.rg-price-tier .tier-title{font-family:var(--sans);font-size:min(2.35vw,4vh);font-weight:650;line-height:1.08;margin:2vh 0}
+.rg-price-tier .tier-price{font-family:var(--sans);font-size:min(4.5vw,7.6vh);font-weight:250;line-height:.95;letter-spacing:-.045em;color:#fff}
 .slide.dark .rg-price-tier:not(.alt) .t-body-sm{color:var(--text-secondary)}
-.rg-price-tier.alt .tier-price{color:#fff}
-.rg-price-benchmark{align-self:center;border-top:1px solid rgba(255,255,255,.3);border-bottom:1px solid rgba(255,255,255,.3);padding:3vh 1vw;text-align:center}
-.rg-price-benchmark .price{font-family:var(--sans);font-size:min(3.1vw,5.2vh);font-weight:250;margin-top:1vh}
+.rg-price-tier.alt .tier-price{color:var(--accent)}
+.rg-price-benchmark{align-self:center;border-top:1px solid var(--border-strong);border-bottom:1px solid var(--border-strong);padding:3vh .7vw;text-align:center;color:var(--ink)}
+.rg-price-benchmark .price{font-family:var(--sans);font-size:min(2.8vw,4.7vh);font-weight:300;margin-top:1vh;letter-spacing:-.03em}
 
-.rg-financial-layout{flex:1;display:grid;grid-template-rows:auto 1fr auto;gap:2.4vh;min-height:0}
-.rg-financial-body{display:grid;grid-template-columns:1.25fr .75fr;gap:2.2vw;align-items:stretch}
-.rg-financial-primary{border-top:4px solid var(--accent);padding:2.8vh 1.4vw 1vh 0;display:flex;flex-direction:column;justify-content:center}
-.rg-financial-primary .amount{font-family:var(--sans);font-size:min(12vw,20vh);font-weight:180;line-height:.78;letter-spacing:-.06em;color:var(--accent)}
-.rg-financial-primary .metric{font-family:var(--sans);font-size:min(3vw,5.1vh);font-weight:500;line-height:1.05;margin-top:2.4vh}
-.rg-financial-side{display:grid;grid-template-rows:1fr 1fr;gap:1.4vh}
-.rg-financial-stat{background:var(--paper);border-top:2px solid var(--ink);padding:2.2vh 1.5vw;display:flex;flex-direction:column;justify-content:center}
-.rg-financial-stat strong{font-family:var(--sans);font-size:min(5vw,8.5vh);font-weight:220;line-height:.9;letter-spacing:-.04em}
+.rg-financial-layout{flex:1;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:2.2vh;min-height:0}
+.rg-financial-body{display:grid;grid-template-columns:1.12fr .88fr;gap:1.8vw;align-items:stretch;min-height:0}
+.rg-financial-primary{background:#e9edf7;border-top:4px solid var(--accent);padding:3vh 2.2vw;display:flex;flex-direction:column;justify-content:center}
+.rg-financial-primary .amount{font-family:var(--sans);font-size:min(11vw,18.5vh);font-weight:230;line-height:.78;letter-spacing:-.06em;color:var(--accent)}
+.rg-financial-primary .metric{font-family:var(--sans);font-size:min(2.8vw,4.75vh);font-weight:580;line-height:1.05;margin-top:2.4vh}
+.rg-financial-side{display:grid;grid-template-rows:1fr 1fr;gap:1.2vh}
+.rg-financial-stat{background:var(--paper);border-top:3px solid var(--ink);padding:2.4vh 1.8vw;display:flex;flex-direction:column;justify-content:center}
+.rg-financial-stat strong{font-family:var(--sans);font-size:min(5.2vw,8.8vh);font-weight:280;line-height:.9;letter-spacing:-.045em}
 .rg-financial-stat span{font-family:var(--sans);font-size:max(17px,1vw);color:var(--text-secondary);margin-top:1.2vh}
 .rg-financial-year{border-top:2px solid var(--accent);padding-top:1.4vh;display:flex;justify-content:space-between;align-items:baseline}
 .rg-financial-year strong{font-family:var(--sans);font-size:min(3.2vw,5.4vh);font-weight:300}
+
+.rg-ask-layout{flex:1;display:grid;grid-template-rows:auto minmax(0,1fr);gap:2.8vh;min-height:0;padding:0 1.2vw 1vh}
+.rg-ask-body{display:grid;grid-template-columns:1.48fr .72fr;gap:4.2vw;min-height:0}
+.rg-ask-milestones{display:grid;grid-template-rows:auto repeat(4,1fr);border-top:3px solid var(--accent);min-height:0}
+.rg-ask-intro{font-family:var(--sans);font-size:min(2.15vw,3.65vh);font-weight:560;line-height:1.15;color:var(--text-secondary);padding:2vh 0 1.4vh}
+.rg-ask-step{display:grid;grid-template-columns:3.8vw 1fr;gap:1vw;align-items:center;border-top:1px solid var(--border-subtle);min-height:0}
+.rg-ask-step .n{font-family:var(--sans);font-size:min(3.2vw,5.4vh);font-weight:270;color:var(--accent);line-height:1}
+.rg-ask-step strong{display:block;font-family:var(--mono);font-size:max(13px,.78vw);font-weight:750;letter-spacing:.11em;color:var(--ink);margin-bottom:.5vh}
+.rg-ask-step span{font-family:var(--sans);font-size:min(1.55vw,2.65vh);font-weight:520;line-height:1.16;color:var(--text-secondary)}
+.rg-ask-panel{display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border-strong);padding-left:3vw}
+.rg-ask-amount{font-family:var(--sans);font-size:min(5.8vw,9.8vh);font-weight:280;line-height:.9;letter-spacing:-.05em;color:var(--accent);margin:2vh 0 1.5vh}
+.rg-ask-copy{font-family:var(--sans);font-size:min(1.65vw,2.8vh);font-weight:520;line-height:1.25;color:var(--text-secondary)}
+.rg-ask-needs{display:grid;gap:1.1vh;margin-top:3vh;padding-top:2vh;border-top:2px solid var(--accent);font-family:var(--sans);font-size:min(1.35vw,2.3vh);font-weight:620;line-height:1.15}
+.rg-ask-needs div:before{content:"+";color:var(--accent);font-weight:800;margin-right:.65vw}
 </style>
 </head>
 <body class="canvas-mode">
@@ -1581,7 +1596,7 @@
         <div style="font-family:var(--sans);font-size:min(7.2vw,12vh);font-weight:700;line-height:.84;letter-spacing:-.055em;color:var(--accent);white-space:nowrap">1 in 3</div>
         <h2 style="font-family:var(--sans);font-size:min(4.15vw,6.95vh);font-weight:560;line-height:1.04;letter-spacing:-.035em">businesses don’t expand because of legal complexity and the obscene cost of lawyers</h2>
       </div>
-      <div style="display:flex;justify-content:flex-end;align-items:center;padding-right:10vw;min-height:0">
+      <div style="display:flex;justify-content:flex-start;align-items:center;padding-left:4vw;min-height:0">
         <div role="img" aria-label="Pie chart showing one third" style="width:min(18vw,29vh);aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--accent) 0 33.333%,#dfe2e7 33.333% 100%);box-shadow:inset 0 0 0 1px rgba(17,24,39,.12);display:grid;place-items:center;transform:rotate(-90deg)">
           <div style="width:38%;aspect-ratio:1;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-family:var(--sans);font-size:min(2.25vw,3.8vh);font-weight:760;letter-spacing:-.035em;color:var(--accent);transform:rotate(90deg)">1/3</div>
         </div>
@@ -1594,19 +1609,24 @@
 <section class="slide grey" data-layout="S18" data-slide-id="broken-legal-workflow">
   <div class="canvas-card" style="background:#eceef1;color:var(--ink)">
     <div class="chrome-min"><div class="l">PROBLEM · EXISTING ALTERNATIVES</div><div class="r">03 / 15</div></div>
-    <div style="flex:1;display:grid;grid-template-rows:auto 1fr auto;gap:2.2vh;padding:0 2vw 1vh;min-height:0">
+    <div style="flex:1;display:grid;grid-template-rows:auto 1fr;gap:2.8vh;padding:0 2vw 2vh;min-height:0">
       <h2 style="max-width:94%;font-family:var(--sans);font-size:min(4.25vw,7.1vh);font-weight:560;line-height:1.01;letter-spacing:-.04em">Growing companies are stuck between <span style="color:var(--accent);font-weight:720">two incomplete workflows.</span></h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2.4vw;align-items:stretch;min-height:0">
-        <div style="display:grid;grid-template-rows:22vh auto;gap:1.45vh;border-top:4px solid var(--accent);padding-top:1.4vh;min-height:0">
-          <img src="images/problem-general-ai.png" alt="A business owner comparing multiple uncertain AI-generated answers" style="width:100%;height:22vh;display:block;object-fit:cover;object-position:center 45%;filter:saturate(.84) contrast(1.03)">
-          <div><div class="t-meta" style="color:var(--accent);font-weight:850">GENERAL AI</div><div style="margin-top:.9vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.1">Affordable but not dependable.</div></div>
+        <div style="display:grid;grid-template-rows:28vh auto;gap:1.7vh;border-top:4px solid var(--accent);padding-top:1.4vh;min-height:0">
+          <div role="img" aria-label="Logos of Claude, Gemini, DeepSeek, Llama, and Grok" style="width:100%;height:28vh;background:#f8f9fb;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:2.2vh 2.1vw;padding:2.2vh 1.2vw;border:1px solid rgba(17,24,39,.08)">
+            <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/claude.svg" alt="Claude logo" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">CLAUDE</span></div>
+            <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/gemini.svg" alt="Gemini logo" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">GEMINI</span></div>
+            <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/deepseek.svg" alt="DeepSeek logo" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">DEEPSEEK</span></div>
+            <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/meta.svg" alt="Meta logo representing Llama" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">LLAMA</span></div>
+            <div style="width:25%;display:grid;justify-items:center;gap:.75vh"><img src="images/ai-logos/xai.svg" alt="X logo representing Grok" style="width:min(3.2vw,5.4vh);height:min(3.2vw,5.4vh);object-fit:contain"><span class="t-meta" style="font-size:max(11px,.67vw)">GROK</span></div>
+          </div>
+          <div><div class="t-meta" style="color:var(--accent);font-weight:850">GENERAL AI</div><div style="margin-top:.9vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.13">Unverified sources. Outdated law. Wrong jurisdiction.</div></div>
         </div>
-        <div style="display:grid;grid-template-rows:22vh auto;gap:1.45vh;border-top:4px solid var(--ink);padding-top:1.4vh;min-height:0">
-          <img src="images/problem-professional-counsel.png" alt="A lawyer reviewing a large stack of documents with a business owner" style="width:100%;height:22vh;display:block;object-fit:cover;object-position:center 48%;filter:saturate(.78) contrast(1.03)">
-          <div><div class="t-meta" style="font-weight:850">PROFESSIONAL COUNSEL</div><div style="margin-top:.9vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.1">Dependable but not affordable.</div></div>
+        <div style="display:grid;grid-template-rows:28vh auto;gap:1.7vh;border-top:4px solid var(--ink);padding-top:1.4vh;min-height:0">
+          <img src="images/problem-legal-documents.png" alt="Large stacks of legal files and case documents" style="width:100%;height:28vh;display:block;object-fit:cover;object-position:center 57%;filter:saturate(.76) contrast(1.03)">
+          <div><div class="t-meta" style="font-weight:850">PROFESSIONAL COUNSEL</div><div style="margin-top:.9vh;font-family:var(--sans);font-size:min(1.85vw,3.1vh);font-weight:650;line-height:1.13">Research billed by the hour after repeated fact collection.</div></div>
         </div>
       </div>
-      <div style="display:grid;grid-template-columns:auto 1fr;gap:1.4vw;align-items:center;border-top:1px solid var(--border-strong);padding-top:1.8vh"><div style="font-family:var(--sans);font-size:min(2vw,3.35vh);font-weight:820;color:var(--accent)">THE GAP</div><div style="font-family:var(--sans);font-size:min(2vw,3.35vh);font-weight:590;line-height:1.15">No living system continuously matches company facts against changing law.</div></div>
     </div>
   </div>
 </section>
@@ -2252,7 +2272,7 @@ hoursLast12M ≥ 1,250</code></pre>
 const SPEAKER_NOTES = [
   {id:'cover',title:'RuleGrid',section:'Elevator',purpose:'State the company and create urgency without explaining the full product.',talk:['RuleGrid begins with a business change, not a legal search box.','The opening promise is simple: help growing companies see legal consequences before they become expensive surprises.'],transition:'Ivan now grounds that promise in the moment when legal obligations actually change.'},
   {id:'legal-complexity-blocks-growth',title:'Legal complexity blocks growth',section:'Problem',purpose:'State the two supplied problem claims with strong visual hierarchy.',talk:['One in three businesses don’t expand because of legal complexity and the obscene cost of lawyers.','Nine out of ten businesses don’t have anyone watching their regulatory landscape.','The result is that owners discover obligations late—after a decision or violation.'],transition:'The next question is why the existing options do not solve this efficiently.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7771ba43f_1_15']},
-  {id:'broken-legal-workflow',title:'Two incomplete workflows',section:'Need',purpose:'Contrast the affordability and dependability gap between general AI and professional counsel.',talk:['General AI is affordable but not dependable.','Professional counsel is dependable but not affordable.','What is missing is a living system that combines both advantages.'],transition:'Austin now defines the product built to fill that gap.'},
+  {id:'broken-legal-workflow',title:'Two incomplete workflows',section:'Need',purpose:'Contrast the reliability failures of general AI with the time-based cost of professional legal research.',talk:['General AI can rely on unverified sources, apply outdated law, or miss the controlling jurisdiction.','Professional legal research is billed by the hour after repeated rounds of fact collection.','Growing companies are forced to choose between low assurance and high friction.'],transition:'Austin now defines the product built to solve both sides of that workflow.',sources:['https://simpleicons.org/?q=claude','https://simpleicons.org/?q=gemini','https://simpleicons.org/?q=deepseek','https://simpleicons.org/?q=meta','https://simpleicons.org/?q=x','Local user-provided asset: images/problem-legal-documents.png']},
   {id:'product-positioning',title:'RuleGrid is an enterprise growth tool',section:'Positioning',purpose:'State the product category and value proposition in two direct sentences.',talk:['RuleGrid is an enterprise growth tool for legal risk assessment planning your path forward.','RuleGrid is unlimited access to 80 percent of what a lawyer can do at almost none of the cost.','It prepares the facts, research, and structured compliance map so professional time can focus on judgment and review.'],transition:'The next slide asks what makes that possible.'},
   {id:'path-forward-question',title:'How can we help in the way no one else can?',section:'Solution Setup',purpose:'Create a clean question-led handoff into the team and product demonstration.',talk:['How is it we can help you find the path forward in the way that no one else can?','The answer is not another generic legal chatbot.','It begins with a team combining law, trustworthy AI, evaluation, engineering, and market analysis.'],transition:'Meet the team building that path before seeing the product in action.',sources:['https://docs.google.com/presentation/d/1NTM01nzycmvt8M9uxIIUT1lsC1VYOCCrVR5sc-4im8k/edit#slide=id.g3f7828c86ba_8_5']},
   {id:'solution',title:'LexCompliance AI business view',section:'Demo',purpose:'Walk through two business-change scenarios, then reveal the complete compliance map without leaving the slide.',talk:['Enter directly at the top of Scenario 1 in the 50 percent view.','Advance to follow Scenario 1 down to its detailed obligations.','The next two advances move through Scenario 2 from top to bottom.','The final in-slide advance zooms out to show all four scenarios together.'],transition:'Xia now answers the question investors are likely asking: why not use a frontier LLM directly?',sources:['Local project asset: AutoCheck_BMoE_StyleB_IKB/lexcompliance-business-view.html?step=0']},
